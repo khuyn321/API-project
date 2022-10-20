@@ -1,6 +1,6 @@
 # `Airbnb Clone`
 
-## Database Schema Design
+## (working) Database Schema Design
 
 ![database-schema]
 
