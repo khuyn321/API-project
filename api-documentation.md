@@ -1474,4 +1474,4 @@ Return spots filtered by query parameters.
       }
     }
     ```
-[database-schema]: https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-11/practices/band-musician-instrument-db-schema.png
+[database-schema]: https://user-images.githubusercontent.com/109500586/196826537-c2c922a3-7d33-4b38-b5a9-f62f39ab0d06.png
