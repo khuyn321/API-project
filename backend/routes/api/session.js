@@ -26,4 +26,11 @@ router.post('/', async (req, res, next) => {
   });
 });
 
+// Log out
+router.delete('/', (req, res) => {
+  res.clearCookie("XSRF-TOKEN");
+  return res.json({ message: 'success' });
+}
+);
+
 module.exports = router;
