@@ -1,7 +1,6 @@
 'use strict';
 const bcrypt = require('bcryptjs')
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -17,17 +16,37 @@ module.exports = {
       {
         email: 'demo@user.io',
         username: 'DaBestDemoUser',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'Demo',
+        lastName: 'User'
       },
       {
         email: 'user@demo.com',
         username: 'yaBoyDemoReelzz',
-        hashedPassword: bcrypt.hashSync('wordpass')
+        hashedPassword: bcrypt.hashSync('wordpass'),
+        firstName: 'Demo',
+        lastName: 'Reelzz'
       },
       {
         email: 'pyrocynical@gmail.com',
         username: 'mrPyrocynical',
-        hashedPassword: bcrypt.hashSync('Pword123')
+        hashedPassword: bcrypt.hashSync('Pword123'),
+        firstName: 'Niall',
+        lastName: 'Comas'
+      },
+      {
+        email: 'spidey@spider.man',
+        username: 'Spidey',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'Peter',
+        lastName: 'Parker'
+      },
+      {
+        email: 'maryJane@spider.man',
+        username: 'ripmaryjane123',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'Mary',
+        lastName: 'Jane'
       },
     ])
   },
@@ -41,7 +60,7 @@ module.exports = {
      */
     await queryInterface.bulkDelete('Users', {
       username: {
-        [Op.in]: ['DaBestDemoUser', 'yaBoyDemoReelzz', 'mrPyrocynical']
+        [Op.in]: ['DaBestDemoUser', 'yaBoyDemoReelzz', 'mrPyrocynical', 'Spidey', 'ripmaryjane123']
       }
     });
   }
