@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     toSafeObject() {
-      const { id, username, email } = this; //context will be the User instance
-      return { id, username, email }
+      const { id, firstName, lastName, email } = this; //context will be the User instance
+      return { id, firstName, lastName, email }
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString())
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       })
       if (user && user.validatePassword(password)) {
-        return await User.scope('currentUser').findByPk(user.id)
+        return await User.findByPk(user.id)
       }
     }
     static async signup({ username, email, password, firstName, lastName }) {
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         firstName,
         lastName
       });
-      return await User.scope('currentUser').findByPk(user.id);
+      return await User.findByPk(user.id);
     }
     static associate(models) {
       // define association here
@@ -91,7 +91,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
     defaultScope: {  //* USES USERNAME & ID
       attributes: {
-        exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
+        exclude: ["hashedPassword", "username", "createdAt", "updatedAt"]
       }
     },
     scopes: {
