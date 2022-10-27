@@ -37,35 +37,78 @@ router.use(express.json())
 //* then I want to average those reviews (sumOfReviews / revCount)
 //* and res.json an "avgRating" with that calculated avg
 
-router.get('/', async (_req, res, _next) => {
-  const allSpots = await Spot.findAll({
-    include: [
-      { model: Review, attributes: [] },
-      { model: SpotImage, attributes: [] }
-    ],
-    attributes: {
-      include: [
-        [Sequelize.fn('AVG', Sequelize.col('Reviews.stars')), 'avgRating'],
-        [Sequelize.col('SpotImages.url'), 'previewImage']
+router.get('/', async (req, res) => {
+  const allSpots = await Spot.findAll()
+
+  const payload = [];
+  for (let i = 0; i < allSpots.length; i++) { //lazy loading to avoid conflicts w/ Postgres
+    const spot = allSpots[i]
+
+    const review = await spot.getReviews({  //aggregate function to find average of Stars column
+      attributes: [
+        [Sequelize.fn('AVG', Sequelize.col('stars')), 'avgRating']
       ]
-    },
-    group: ['Spot.id']
-  });
+    })
 
-  return res.json({ Spots: allSpots });
-});
+    const avgRating = review[0].toJSON().avgRating //keying to grab the value
 
+    let spotImage = await SpotImage.findOne({      //finds the first image that has a truthy preview
+      where: {
+        preview: true,
+        spotId: spot.id
+      }
+    })
 
-module.exports = router;
+    spotImage ? spotImage = spotImage.url : null
 
+    const spotData = {
+      id: spot.id,
+      ownerId: spot.ownerId,
+      address: spot.address,
+      city: spot.city,
+      state: spot.state,
+      country: spot.country,
+      lat: spot.lat,
+      lng: spot.lng,
+      name: spot.name,
+      description: spot.description,
+      price: spot.price,
+      createdAt: spot.createdAt,
+      updatedAt: spot.updatedAt,
+      avgRating: avgRating,
+      previewImage: spotImage
+    }
+    payload.push(spotData)
+  }
+  res.json({
+    Spots: payload
+  })
+})
 
+// router.get('/', async (_req, res, _next) => {
+//   const allSpots = await Spot.findAll({
+//     include: [
+//       { model: Review, attributes: [] },
+//       { model: SpotImage, attributes: [] }
+//     ],
+//     attributes: {
+//       include: [
+//         [Sequelize.fn('AVG', Sequelize.col('Reviews.stars')), 'avgRating'],
+//         [Sequelize.col('SpotImages.url'), 'previewImage']
+//       ]
+//     },
+//     group: ['Spot.id']
+//   });
+
+//   return res.json({ Spots: allSpots });
+// });
 
 //todo)   scrapped/flawed code v v v
 
-      // attributes: {
-      //   include: [
-        //     [Sequelize.fn('AVG', Sequelize.col('avgRating.stars')), 'avgRating']]
-      // },
+// attributes: {
+//   include: [
+//     [Sequelize.fn('AVG', Sequelize.col('avgRating.stars')), 'avgRating']]
+// },
 
 // const avgRating = await Review.findAll({
 //   attributes: {
@@ -147,3 +190,5 @@ module.exports = router;
 //     Spots: spotList
 //   })
 // })
+
+module.exports = router;
