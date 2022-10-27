@@ -45,9 +45,16 @@ const validateNewSpot = [
 
 //!             ADD IMG TO SPOT BASED ON SPOT ID
 
-router.post('/:spotid/images', async (req, res) => {
+router.post('/:spotid/images', async (req, res, next) => {
   const { url, preview } = req.body
+  const spot = await Spot.findByPk(req.params.spotid)
 
+  if (!spot) {
+    const err = new Error('Spot couldn\'t be found.');
+    err.status = 404;
+    throw (err);
+  }
+  // create the new spot's image, linking it using given spotId
   const spotImage = await SpotImage.create({
     spotId: req.params.spotid,
     url: url,
@@ -55,11 +62,6 @@ router.post('/:spotid/images', async (req, res) => {
   })
 
   let id = spotImage.id
-  // const newSpotImage = await SpotImage.findByPk(spotImage.id, {
-  //   attributes: {
-  //     include: ['id', 'url', 'preview']
-  //   }
-  // })
 
   return res.json({
     id,
