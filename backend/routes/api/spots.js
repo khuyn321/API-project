@@ -11,26 +11,65 @@ const { route } = require('./users');
 const { Op } = require("sequelize");
 
 router.use(express.json())
-// ...
-// const validateSignup = [
-//   check('email')
-//     .exists({ checkFalsy: true })
-//     .isEmail()
-//     .withMessage('Please provide a valid email.'),
-//   check('username')
-//     .exists({ checkFalsy: true })
-//     .isLength({ min: 4 })
-//     .withMessage('Please provide a username with at least 4 characters.'),
-//   check('username')
-//     .not()
-//     .isEmail()
-//     .withMessage('Username cannot be an email.'),
-//   check('password')
-//     .exists({ checkFalsy: true })
-//     .isLength({ min: 6 })
-//     .withMessage('Password must be 6 characters or more.'),
-//   handleValidationErrors
-// ];
+
+const validateNewSpot = [
+  check('address')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide an address.'),
+  check('city')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a city.'),
+  check('state')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a state.'),
+  check('country')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a country.'),
+  check('lat')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a latitude coordinate.'),
+  check('lng')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a longitude coordinate.'),
+  check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a spot name.'),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a spot name.'),
+  check('price')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a price for your spot.'),
+  handleValidationErrors
+];
+
+//!              CREATE A NEW SPOT
+
+router.post(
+  '/',
+  validateNewSpot,
+  async (req, res) => {
+    const { user } = req
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const spot = await Spot.create({
+      ownerId: user.id,
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price
+    });
+    // return await Spot.findByPk(spot.id);
+    return res.json({
+      spot
+    });
+  }
+);
 
 //!              GET ALL SPOTS
 //* for each spot, I want to get that spot's reviews
@@ -85,23 +124,6 @@ router.get('/', async (req, res) => {
   })
 })
 
-// router.get('/', async (_req, res, _next) => {
-//   const allSpots = await Spot.findAll({
-//     include: [
-//       { model: Review, attributes: [] },
-//       { model: SpotImage, attributes: [] }
-//     ],
-//     attributes: {
-//       include: [
-//         [Sequelize.fn('AVG', Sequelize.col('Reviews.stars')), 'avgRating'],
-//         [Sequelize.col('SpotImages.url'), 'previewImage']
-//       ]
-//     },
-//     group: ['Spot.id']
-//   });
-
-//   return res.json({ Spots: allSpots });
-// });
 
 //todo)   scrapped/flawed code v v v
 
@@ -183,12 +205,27 @@ router.get('/', async (req, res) => {
 //     })
 
 //   });
-
-
-
 //   return res.json({
 //     Spots: spotList
 //   })
 // })
+
+// router.get('/', async (_req, res, _next) => {
+//   const allSpots = await Spot.findAll({
+//     include: [
+//       { model: Review, attributes: [] },
+//       { model: SpotImage, attributes: [] }
+//     ],
+//     attributes: {
+//       include: [
+//         [Sequelize.fn('AVG', Sequelize.col('Reviews.stars')), 'avgRating'],
+//         [Sequelize.col('SpotImages.url'), 'previewImage']
+//       ]
+//     },
+//     group: ['Spot.id']
+//   });
+
+//   return res.json({ Spots: allSpots });
+// });
 
 module.exports = router;
