@@ -43,6 +43,32 @@ const validateNewSpot = [
   handleValidationErrors
 ];
 
+//!             ADD IMG TO SPOT BASED ON SPOT ID
+
+router.post('/:spotid/images', async (req, res) => {
+  const { url, preview } = req.body
+
+  const spotImage = await SpotImage.create({
+    spotId: req.params.spotid,
+    url: url,
+    preview: preview
+  })
+
+  let id = spotImage.id
+  // const newSpotImage = await SpotImage.findByPk(spotImage.id, {
+  //   attributes: {
+  //     include: ['id', 'url', 'preview']
+  //   }
+  // })
+
+  return res.json({
+    id,
+    url,
+    preview
+  });
+}
+);
+
 //!              GET SPOTS OF CURRENT USER
 
 router.get('/current', async (req, res) => {
@@ -282,5 +308,34 @@ router.get('/', async (req, res) => {
 
 //   return res.json({ Spots: allSpots });
 // });
+
+//////////////////////////////////////
+// const { spotId } = req.params
+
+// const spots = await Spot.findAll()
+// let spotArr = []
+
+// for (let i = 0; i < spots.length; i++) {
+//   let jsonSpot = spots[i].toJSON()
+
+//   console.log(`jsonSpot:  ${jsonSpot}`)
+//   console.log(`spotId:  ${req.params.spotid}`)
+
+//   if (jsonSpot.id === req.params.spotid) {
+//     spotArr.push(jsonSpot)
+//   }
+// }
+
+// console.log('...SPOTARRAY...')
+// console.log(spotArr)
+// console.log('...')
+
+// spots.url = url
+// spots.preview = preview
+
+// console.log('...')
+// // console.log(spot)
+// console.log('...')
+
 
 module.exports = router;
