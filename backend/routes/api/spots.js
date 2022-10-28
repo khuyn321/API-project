@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, Review, SpotImage, Sequelize } = require('../../db/models');
+const { Spot, Review, SpotImage, User, Sequelize } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -68,8 +68,7 @@ router.post('/:spotid/images', async (req, res, next) => {
     url,
     preview
   });
-}
-);
+});
 
 //!              GET SPOTS OF CURRENT USER
 
@@ -125,6 +124,76 @@ router.get('/current', async (req, res) => {
     Spots: payload
   })
 })
+
+//!           GET DETAILS OF SPOT FROM AN ID
+
+router.get('/:spotid', async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.spotid)
+  if (!spot) {
+    const err = new Error('Spot couldn\'t be found.');
+    err.status = 404;
+    throw (err);
+  }
+
+  const numReview = await spot.getReviews({  //aggregate function to find average of Stars column
+    attributes: [
+      [Sequelize.fn('COUNT'), 'numReviews']
+    ]
+  })
+
+  const numReviews = numReview[0].toJSON().numReviews //keying to grab the value
+  console.log('---------THIS IS NUM-REVIEWS BELOW--------')
+  console.log(numReviews)
+  console.log('------------------------------------------')
+
+  const review = await spot.getReviews({  //aggregate function to find average of Stars column
+    attributes: [
+      [Sequelize.fn('AVG', Sequelize.col('stars')), 'avgStarRating']
+    ]
+  })
+
+  const avgRating = review[0].toJSON().avgStarRating //keying to grab the value
+
+  console.log('---------THIS IS AVG-RATING BELOW--------')
+  console.log(avgRating)
+  console.log('------------------------------------------')
+
+  let SpotImages = await SpotImage.findAll({      //finds the first image that has a truthy preview
+    where: {
+      spotId: spot.id
+    },
+    attributes: [
+      'id', 'url', 'preview'
+    ]
+  })
+
+  const owner = await User.findByPk(spot.ownerId, {
+    attributes: [
+      'id', 'firstName', 'lastName'
+    ]
+  })
+
+  res.json({
+    id: spot.id,
+    ownerId: spot.ownerId,
+    address: spot.address,
+    city: spot.city,
+    state: spot.state,
+    country: spot.country,
+    lat: spot.lat,
+    lng: spot.lng,
+    name: spot.name,
+    description: spot.description,
+    price: spot.price,
+    createdAt: spot.createdAt,
+    updatedAt: spot.updatedAt,
+    numReviews: numReviews,
+    avgStarRating: avgRating,
+    SpotImages: SpotImages,
+    Owner: owner
+  })
+});
+
 
 //!              CREATE A NEW SPOT
 
