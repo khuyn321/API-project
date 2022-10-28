@@ -190,28 +190,32 @@ router.get('/current', async (req, res) => {
     }
   })
 
-  const payload = [];
-  for (let i = 0; i < allSpots.length; i++) { //lazy loading to avoid conflicts w/ Postgres
+  const spotsInfo = [];
+  for (let i = 0; i < allSpots.length; i++) {
     const spot = allSpots[i]
 
-    const review = await spot.getReviews({  //aggregate function to find average of Stars column
+    const review = await spot.getReviews({
       attributes: [
         [Sequelize.fn('AVG', Sequelize.col('stars')), 'avgRating']
+        // sequelize aggregate function to avg stars
       ]
     })
+    const avgRating = review[0].toJSON().avgRating
 
-    const avgRating = review[0].toJSON().avgRating //keying to grab the value
-
-    let spotImage = await SpotImage.findOne({      //finds the first image that has a truthy preview
+    let spotImage = await SpotImage.findOne({
       where: {
         preview: true,
         spotId: spot.id
       }
     })
 
-    spotImage ? spotImage = spotImage.url : null
+    if (spotImage) {
+      spotImage = spotImage.url
+    } else {
+      spotImage = null
+    }
 
-    const spotData = {
+    const spotInfo = {
       id: spot.id,
       ownerId: spot.ownerId,
       address: spot.address,
@@ -228,10 +232,10 @@ router.get('/current', async (req, res) => {
       avgRating: avgRating,
       previewImage: spotImage
     }
-    payload.push(spotData)
+    spotsInfo.push(spotInfo)
   }
   res.json({
-    Spots: payload
+    Spots: spotsInfo
   })
 })
 
@@ -415,7 +419,7 @@ router.post(
 router.get('/', async (req, res) => {
   const allSpots = await Spot.findAll()
 
-  const payload = [];
+  const spotsInfo = [];
   for (let i = 0; i < allSpots.length; i++) { //lazy loading to avoid conflicts w/ Postgres
     const spot = allSpots[i]
 
@@ -434,9 +438,13 @@ router.get('/', async (req, res) => {
       }
     })
 
-    spotImage ? spotImage = spotImage.url : null
+    if (spotImage) {
+      spotImage = spotImage.url
+    } else {
+      spotImage = null
+    }
 
-    const spotData = {
+    const spotInfo = {
       id: spot.id,
       ownerId: spot.ownerId,
       address: spot.address,
@@ -453,10 +461,10 @@ router.get('/', async (req, res) => {
       avgRating: avgRating,
       previewImage: spotImage
     }
-    payload.push(spotData)
+    spotsInfo.push(spotInfo)
   }
   res.json({
-    Spots: payload
+    Spots: spotsInfo
   })
 })
 
