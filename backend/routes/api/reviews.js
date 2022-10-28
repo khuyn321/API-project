@@ -28,7 +28,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 //   handleValidationErrors
 // ];
 
-//!              GET SPOTS OF CURRENT USER
+//!              GET REVIEWS OF CURRENT USER
 
 router.get('/current', async (req, res) => {
   const { user } = req
