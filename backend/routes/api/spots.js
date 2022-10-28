@@ -205,8 +205,14 @@ router.get('/:spotid', async (req, res, next) => {
 
 router.put('/:spotId', validateNewSpot, async (req, res, next) => {
   const { address, city, state, country, lat, lng, name, description, price } = req.body
+  const { user } = req
 
-  const spot = await Spot.findByPk(req.params.spotId)
+  const spot = await Spot.findOne({
+    where: {
+      id: req.params.spotId,
+      ownerId: user.id
+    }
+  })
 
   if (!spot) {
     const err = new Error('Spot couldn\'t be found.');
@@ -238,6 +244,31 @@ router.put('/:spotId', validateNewSpot, async (req, res, next) => {
 //   res.json(dog);
 // };
 
+//!              DELETE A SPOT
+
+router.delete('/:spotId', async (req, res, next) => {
+  const { user } = req
+
+  const spot = await Spot.findOne({
+    where: {
+      id: req.params.spotId,
+      ownerId: user.id
+    }
+  })
+
+  if (!spot) {
+    const err = new Error('Spot couldn\'t be found.');
+    err.status = 404;
+    throw (err);
+  };
+
+  await spot.destroy();
+
+  res.json({
+    message: "Successfully deleted",
+    statusCode: 200
+  });
+});
 
 //!              CREATE A NEW SPOT
 
