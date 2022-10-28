@@ -135,13 +135,19 @@ router.get('/:spotid', async (req, res, next) => {
     throw (err);
   }
 
-  const numReview = await spot.getReviews({  //aggregate function to find average of Stars column
-    attributes: [
-      [Sequelize.fn('COUNT'), 'numReviews']
-    ]
+  const numReviews = await Review.count({
+    where: {
+      spotId: spot.id
+    }
   })
 
-  const numReviews = numReview[0].toJSON().numReviews //keying to grab the value
+  // const numReview = await spot.getReviews({  //aggregate function to find average of Stars column
+  //   attributes: [
+  //     [Sequelize.fn('COUNT'), 'numReviews']
+  //   ]
+  // })
+
+  // const numReviews = numReview[0].toJSON().numReviews //keying to grab the value
   // console.log('---------THIS IS NUM-REVIEWS BELOW--------')
   // console.log(numReviews)
   // console.log('------------------------------------------')
