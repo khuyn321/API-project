@@ -15,31 +15,32 @@ router.use(express.json())
 const validateNewSpot = [
   check('address')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide an address.'),
+    .withMessage('Street address is required'),
   check('city')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a city.'),
+    .withMessage("City is required"),
   check('state')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a state.'),
+    .withMessage("State is required"),
   check('country')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a country.'),
+    .withMessage('Country is required'),
   check('lat')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a latitude coordinate.'),
+    .withMessage('Latitude is not valid'),
   check('lng')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a longitude coordinate.'),
+    .withMessage('Longitude is not valid'),
   check('name')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a spot name.'),
+    .isLength({ max: 50 })
+    .withMessage('Name must be less than 50 characters.'),
   check('description')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a spot name.'),
+    .withMessage('Description is required'),
   check('price')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a price for your spot.'),
+    .withMessage('Price per day is required'),
   handleValidationErrors
 ];
 
@@ -199,6 +200,43 @@ router.get('/:spotid', async (req, res, next) => {
     Owner: owner
   })
 });
+
+//!              EDIT/UPDATE A SPOT
+
+router.put('/:spotId', validateNewSpot, async (req, res, next) => {
+  const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+  const spot = await Spot.findByPk(req.params.spotId)
+
+  if (!spot) {
+    const err = new Error('Spot couldn\'t be found.');
+    err.status = 404;
+    throw (err);
+  }
+
+  spot.update({
+    address: address,
+    city: city,
+    state: state,
+    country: country,
+    lat: lat,
+    lng: lng,
+    name: name,
+    description: description,
+    price: price
+  })
+  await spot.save()
+
+  res.json(spot)
+})
+
+// const updateDog = (req, res) => {
+//   const { name } = req.body;
+//   const { dogId } = req.params;
+//   const dog = dogs.find(dog => dog.dogId == dogId);
+//   dog.name = name;
+//   res.json(dog);
+// };
 
 
 //!              CREATE A NEW SPOT
