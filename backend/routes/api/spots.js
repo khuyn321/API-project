@@ -142,9 +142,9 @@ router.get('/:spotid', async (req, res, next) => {
   })
 
   const numReviews = numReview[0].toJSON().numReviews //keying to grab the value
-  console.log('---------THIS IS NUM-REVIEWS BELOW--------')
-  console.log(numReviews)
-  console.log('------------------------------------------')
+  // console.log('---------THIS IS NUM-REVIEWS BELOW--------')
+  // console.log(numReviews)
+  // console.log('------------------------------------------')
 
   const review = await spot.getReviews({  //aggregate function to find average of Stars column
     attributes: [
@@ -154,9 +154,9 @@ router.get('/:spotid', async (req, res, next) => {
 
   const avgRating = review[0].toJSON().avgStarRating //keying to grab the value
 
-  console.log('---------THIS IS AVG-RATING BELOW--------')
-  console.log(avgRating)
-  console.log('------------------------------------------')
+  // console.log('---------THIS IS AVG-RATING BELOW--------')
+  // console.log(avgRating)
+  // console.log('------------------------------------------')
 
   let SpotImages = await SpotImage.findAll({      //finds the first image that has a truthy preview
     where: {
