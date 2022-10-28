@@ -44,6 +44,25 @@ const validateNewSpot = [
   handleValidationErrors
 ];
 
+const validateNewReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .withMessage('Review text is required'),
+  check('stars')
+    .exists({ checkFalsy: true })
+    .withMessage('Star rating is required'),
+  check('stars')
+    .isNumeric({ checkFalsy: true })
+    .withMessage('Star rating must be a number'),
+  check('stars')
+    .isLength({ min: 1 })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  check('stars')
+    .isLength({ max: 5 })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+]
+
 //!             ADD IMG TO SPOT BASED ON SPOT ID
 
 router.post('/:spotid/images', async (req, res, next) => {
@@ -69,6 +88,45 @@ router.post('/:spotid/images', async (req, res, next) => {
     url,
     preview
   });
+});
+
+//!             CREATE REVIEW FOR SPOT BASED ON SPOT ID
+
+router.post('/:spotId/reviews', validateNewReview, async (req, res, next) => {
+  const { review, stars } = req.body
+  const { user } = req
+  // const spotId = JSON.parse(req.params.spotId)
+  // const spot = await Spot.findByPk(spotId)
+  const spot = await Spot.findByPk(req.params.spotId)
+
+  if (!spot) {
+    const err = new Error('Spot couldn\'t be found.');
+    err.status = 404;
+    throw (err);
+  }
+
+  //check if user has made
+  const reviewExists = await Review.findAll({
+    where: {
+      userId: user.id,
+      spotId: spot.id
+    }
+  })
+  if (reviewExists[0]) {
+    const err = new Error('User already has a review for this spot');
+    err.status = 403;
+    throw (err);
+  }
+  // create the new spot's review, linking it using given spotId
+  const newReview = await Review.create({
+    userId: user.id,
+    spotId: req.params.spotId,
+    review: review,
+    stars: stars
+  })
+
+  return res.json(
+    newReview);
 });
 
 //!              GET REVIEWS BY SPOTID
