@@ -7,26 +7,24 @@ const { Review, ReviewImage, User, Spot, SpotImage } = require('../../db/models'
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-// ...
-// const validateSignup = [
-//   check('email')
-//     .exists({ checkFalsy: true })
-//     .isEmail()
-//     .withMessage('Please provide a valid email.'),
-//   check('username')
-//     .exists({ checkFalsy: true })
-//     .isLength({ min: 4 })
-//     .withMessage('Please provide a username with at least 4 characters.'),
-//   check('username')
-//     .not()
-//     .isEmail()
-//     .withMessage('Username cannot be an email.'),
-//   check('password')
-//     .exists({ checkFalsy: true })
-//     .isLength({ min: 6 })
-//     .withMessage('Password must be 6 characters or more.'),
-//   handleValidationErrors
-// ];
+const validateNewReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .withMessage('Review text is required'),
+  check('stars')
+    .exists({ checkFalsy: true })
+    .withMessage('Star rating is required'),
+  check('stars')
+    .isNumeric({ checkFalsy: true })
+    .withMessage('Star rating must be a number'),
+  check('stars')
+    .isLength({ min: 1 })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  check('stars')
+    .isLength({ max: 5 })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+]
 
 //!              GET REVIEWS OF CURRENT USER
 
@@ -134,5 +132,33 @@ router.post('/:reviewId/images', async (req, res, next) => {
   });
 
 });
+
+//!              EDIT/UPDATE A REVIEW
+
+router.put('/:reviewId', validateNewReview, async (req, res, next) => {
+  const { review, stars } = req.body
+  const { user } = req
+
+  const foundReview = await Review.findOne({
+    where: {
+      id: req.params.reviewId,
+      userId: user.id
+    }
+  })
+
+  if (!foundReview) {
+    const err = new Error('Review couldn\'t be found.');
+    err.status = 404;
+    throw (err);
+  }
+
+  foundReview.update({
+    review: review,
+    stars: stars
+  })
+  await foundReview.save()
+
+  res.json(foundReview)
+})
 
 module.exports = router;
