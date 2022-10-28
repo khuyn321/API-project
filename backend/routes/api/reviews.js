@@ -97,4 +97,42 @@ router.get('/current', async (req, res) => {
   })
 })
 
+//!             ADD IMG TO REVIEW BASED ON REVIEW ID
+
+router.post('/:reviewId/images', async (req, res, next) => {
+  const { url } = req.body
+  const review = await Review.findByPk(req.params.reviewId)
+
+  if (!review) {
+    const err = new Error('Review couldn\'t be found.');
+    err.status = 404;
+    throw (err);
+  }
+
+  /**************** Checks review's image count and errs  if > 10 ****************/
+  const allReviewImages = await ReviewImage.findAll({
+    where: { reviewId: review.id }
+  })
+  if (allReviewImages.length >= 10) {
+    const err = new Error('Maximum number of images for this resource was reached');
+    err.status = 403;
+    throw (err);
+  }
+  /*******************************************************************************/
+
+  // create the review's new image, linking it using given reviewId
+  const reviewImage = await ReviewImage.create({
+    reviewId: req.params.reviewId,
+    url: url
+  })
+
+  let id = reviewImage.id
+
+  return res.json({
+    id,
+    url
+  });
+
+});
+
 module.exports = router;
