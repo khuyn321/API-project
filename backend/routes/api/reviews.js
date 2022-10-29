@@ -37,7 +37,7 @@ router.get('/current', async (req, res) => {
   })
 
   const Reviews = [];
-  for (let i = 0; i < allReviews.length; i++) { //for each review of the current user
+  for (let i = 0; i < allReviews.length; i++) {
     const review = allReviews[i]
 
     const reviewUser = await User.findOne({
@@ -49,20 +49,23 @@ router.get('/current', async (req, res) => {
       where: { id: review.spotId },
     })
 
-    let spotImage = await SpotImage.findOne({      //finds the first image that has a truthy preview
+    let spotImage = await SpotImage.findOne({
       where: { preview: true, spotId: spot.id }
     })
 
-    spotImage ? spotImage = spotImage.url : null
+    if (spotImage) {
+      spotImage = spotImage.url
+    } else {
+      spotImage = null
+    }
     // const previewImage = spotImage
 
-    let reviewImages = await ReviewImage.findAll({      //finds the first image that has a truthy preview
+    let reviewImages = await ReviewImage.findAll({
       where: { reviewId: review.id },
       attributes: ['id', 'url']
     })
 
-    // setting spotData to be used by reviewData
-    const spotData = {
+    const spotInfo = {
       id: spot.id,
       ownerId: spot.ownerId,
       address: spot.address,
@@ -85,7 +88,7 @@ router.get('/current', async (req, res) => {
       createdAt: review.createdAt,
       updatedAt: review.updatedAt,
       User: reviewUser,
-      Spot: spotData,  //   <--  defined from data obj above
+      Spot: spotInfo,  //   <--  defined from data obj above
       ReviewImages: reviewImages
     }
     Reviews.push(reviewData)
