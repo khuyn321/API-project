@@ -574,7 +574,86 @@ router.post(
 //* and res.json an "avgRating" with that calculated avg
 
 router.get('/', async (req, res) => {
-  const allSpots = await Spot.findAll()
+  let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
+  page = parseInt(page)
+  size = parseInt(size)
+  if (!page || page > 10) page = 1
+  if (!size || size > 20) size = 20
+
+  const where = {};
+
+  //! *****************************************************************
+
+  if (page < 1) err.errors.page = "Page must be greater than or equal to 1"
+  if (size < 1) err.errors.size = "Size must be greater than or equal to 1"
+  if (maxLat) {
+    if (isNaN(parseFloat(maxLat))) {
+      const err = new Error('Validation Error')
+      err.errors = { maxLat: "Maximum latitude is invalid" };
+      err.status = 400
+      throw (err)
+    }
+    where.lat = { [Op.lt]: maxLat }
+  }
+  if (minLat) {
+    if (isNaN(parseFloat(minLat))) {
+      const err = new Error('Validation Error')
+      err.errors = { minLat: "Minimum latitude is invalid" }
+      err.status = 400
+      throw (err)
+    };
+    where.lat = { [Op.gt]: minLat }
+  }
+  if (minLng) {
+    if (isNaN(parseFloat(minLng))) {
+      const err = new Error('Validation Error')
+      err.errors = { minLng: "Maximum longitude is invalid" };
+      err.status = 400
+      throw (err)
+    }
+    where.lng = { [Op.gt]: minLng }
+  }
+  if (maxLng) {
+    if (isNaN(parseFloat(maxLng))) {
+      const err = new Error('Validation Error')
+      err.errors = { maxLng: "Minimum longitude is invalid" }
+      err.status = 400
+      throw (err)
+    }
+    where.lng = { [Op.lt]: maxLng }
+  }
+  if (minPrice) {
+    if (isNaN(parseFloat(minPrice)) || minPrice < 0) {
+      const err = new Error('Validation Error')
+      err.errors = { minPrice: "Minimum price must be greater than or equal to 0" };
+      err.status = 400
+      throw (err)
+    }
+    where.price = { [Op.gt]: minPrice }
+  }
+  if (maxPrice) {
+    if (isNaN(parseFloat(maxPrice)) || maxPrice < 0) {
+      const err = new Error('Validation Error')
+      err.errors = { maxPrice: "Minimum price must be greater than or equal to 0" }
+      err.status = 400
+      throw (err)
+    }
+    where.price = { [Op.lt]: maxPrice }
+  }
+
+  //! *****************************************************************
+
+  let pagination = {}
+
+  pagination.limit = size; // pagination: limit = user-inputted size
+  pagination.offset = size * (page - 1)
+
+  //? ***********************************************/
+
+  const allSpots = await Spot.findAll({
+    where,
+    ...pagination
+  })
 
   const spotsInfo = [];
   for (let i = 0; i < allSpots.length; i++) { //lazy loading to avoid conflicts w/ Postgres
@@ -621,7 +700,9 @@ router.get('/', async (req, res) => {
     spotsInfo.push(spotInfo)
   }
   res.json({
-    Spots: spotsInfo
+    Spots: spotsInfo,
+    page,
+    size
   })
 })
 
