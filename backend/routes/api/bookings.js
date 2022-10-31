@@ -101,7 +101,11 @@ router.put('/:bookingId',
       }
     })
 
-    const allBookings = await Booking.findAll()
+    const allBookings = await Booking.findAll({ //find all bookings for this spot
+      where: {
+        spotId: req.params.spotId
+      }
+    })
 
     const rn = new Date().toJSON()
 
