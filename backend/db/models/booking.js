@@ -27,16 +27,16 @@ module.exports = (sequelize, DataTypes) => {
     startDate: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      validate: {
-        isAfter: Sequelize.literal('CURRENT_DATE')
-      }
+      // validate: {
+      //   isAfter: Sequelize.literal('CURRENT_DATE')
+      // }
     },
     endDate: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      validate: {
-        isAfter: Sequelize.literal('CURRENT_DATE')
-      }
+      // validate: {
+      //   isAfter: Sequelize.literal('CURRENT_DATE')
+      // }
     }
   }, {
     sequelize,
