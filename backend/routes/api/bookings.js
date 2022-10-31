@@ -103,7 +103,7 @@ router.put('/:bookingId',
 
     const allBookings = await Booking.findAll({ //find all bookings for this spot
       where: {
-        spotId: req.params.spotId
+        spotId: req.params.bookingId
       }
     })
 

@@ -25,8 +25,7 @@ router.get('/', restoreUser,
     const { user } = req;
     if (user) {
       return res.json({
-        user: user.toSafeObject(),
-        token: req.cookies.token
+        user: user.toSafeObject()
       });
     } else return res.json({});
   }
@@ -49,8 +48,12 @@ router.post('/', validateLogin, async (req, res, next) => {
   const token = await setTokenCookie(res, user);
 
   return res.json({
-    user,
-    token
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    username: user.username,
+    token: token
   });
 });
 

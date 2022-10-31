@@ -40,8 +40,12 @@ router.post(
 
 
     return res.json({
-      user,
-      token
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username,
+      token: token
     });
   }
 );
