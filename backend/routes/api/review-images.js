@@ -32,17 +32,19 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     const err = new Error('Review Image couldn\'t be found.'); //! <--
     err.status = 404;
     throw (err);
-  } else if (!review) {
-    const err = new Error('Review couldn\'t be found.'); //! <--
-    err.status = 404;
-    throw (err);
-  };
+  }
 
   const review = await Review.findOne({
     where: {
       id: reviewImage.reviewId  //! find review to compare user's id and currUser's id
     }
   })
+  if (!review) {
+    const err = new Error('Review couldn\'t be found.'); //! <--
+    err.status = 404;
+    throw (err);
+  };
+
   if (review.userId != user.id) {
     const err = new Error("Must be owner to delete Spot Image")  //! <--
     err.status = 403
