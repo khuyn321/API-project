@@ -137,17 +137,26 @@ router.post('/:spotid/images', async (req, res, next) => {
   const { url, preview } = req.body
   const spot = await Spot.findByPk(req.params.spotid)
 
+  console.log('---- [ 1 ]---')
+
   if (!spot) {
     const err = new Error('Spot couldn\'t be found.');
     err.status = 404;
     throw (err);
   }
+
+  console.log('---- [ 2 ]---')
+
   // create the new spot's image, linking it using given spotId
   const spotImage = await SpotImage.create({
     spotId: req.params.spotid,
     url: url,
     preview: preview
   })
+
+
+  console.log('---- [ 3 ]---')
+
 
   let id = spotImage.id
 
@@ -562,9 +571,9 @@ router.post(
       price
     });
     // return await Spot.findByPk(spot.id);
-    return res.json({
+    return res.json(
       spot
-    });
+    );
   }
 );
 
