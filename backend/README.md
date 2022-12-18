@@ -4,7 +4,7 @@
 
 ![airbnb-dbdiagram]
 
-[airbnb-dbdiagram]: ../../mod4_proj_documentation_current/assets/airbnb_dbdiagram.png
+[airbnb-dbdiagram]: ../../mod4_official_proj_docs_sept_cohort/assets/airbnb_dbdiagram.png
 
 ## API Documentation
 
@@ -65,12 +65,15 @@ Returns the information about the current user that is logged in.
 
     ```json
     {
-      "id": 1,
-      "firstName": "John",
-      "lastName": "Smith",
-      "email": "john.smith@gmail.com",
-      "username": "JohnSmith"
+      "user": {
+        "id": 1,
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "john.smith@gmail.com",
+        "username": "JohnSmith"
+      }
     }
+
     ```
 
 ### Log In a User
@@ -101,12 +104,13 @@ information.
 
     ```json
     {
-      "id": 1,
-      "firstName": "John",
-      "lastName": "Smith",
-      "email": "john.smith@gmail.com",
-      "username": "JohnSmith",
-      "token": ""
+      "user": {
+        "id": 1,
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "john.smith@gmail.com",
+        "username": "JohnSmith"
+      }
     }
     ```
 
@@ -1446,6 +1450,7 @@ Return spots filtered by query parameters.
           "price": 123,
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
+          "avgRating": 4.5,
           "previewImage": "image url"
         }
       ],
