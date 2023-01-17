@@ -39,11 +39,14 @@ router.post('/', validateLogin, async (req, res, next) => {
   const user = await User.login({ credential, password });
 
   if (!user) {
-    const err = new Error('Invalid credentials');
-    err.status = 401;
-    err.title = 'Invalid credentials'
-    delete err.stack;
-    throw (err);
+    // const err = new Error('Invalid credentials');
+    // err.status = 401;
+    // err.title = 'Invalid credentials'
+    // delete err.stack;
+    // throw (err);
+    return res.json({
+      "user": null
+    })
   }
   /**  ex. response
    {

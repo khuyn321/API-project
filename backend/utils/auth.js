@@ -57,11 +57,9 @@ const restoreUser = (req, res, next) => {
 const requireAuth = function (req, res, next) {
   if (req.user) return next();
 
-  const err = new Error('Unauthorized');
-  err.title = 'Unauthorized';
-  err.errors = ['Unauthorized'];
-  err.status = 401;
-  return next(err);
+  return res.json({
+    "user": null
+  })
 }
 
 module.exports = { setTokenCookie, restoreUser, requireAuth };
