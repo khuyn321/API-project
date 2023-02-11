@@ -1,16 +1,56 @@
 import { csrfFetch } from "./csrf";
 
-const CREATE = ''
-
 // thunk action to grab all spots
-// export const readThunk = () => async (dispatch) => {
-//   const res = await csrfFetch('/api/spots')
-//   if (res.ok) {
-//       const spots = await res.json()
-//       dispatch((actionReadSpots(spots)))
-//   }
-// }
+export const readThunk = () => async (dispatch) => {
+  const res = await csrfFetch('/api/spots')
+  if (res.ok) {
+    const spots = await res.json()
+    dispatch((actionReadSpots(spots)))
+  }
+}
 
+const CREATE = 'spots/createSpot'
+const DELETE = 'spots/deleteSpot'
+const RESET = 'spots/resetState'
+
+export const actionCreateSpot = (spot) => ({
+  type: CREATE,
+  spot
+})
+
+export const actionDeleteSpot = (id) => ({
+  type: DELETE,
+  id
+})
+
+export const actionResetState = () => ({
+  type: RESET
+})
+
+function defaultState() {
+  const initialState = {}
+  initialSpots.forEach(spot => {
+    initialState[spot.id] = spot
+  })
+  return initialState
+}
+
+export default function spotsReducer(state = defaultState(), action) {
+  const newState = { ...state }
+
+  switch (action.type) {
+    case CREATE:
+      newState[action.spot.id] = action.spot
+      return newState
+    case DELETE:
+      delete newState[action.id]
+      return newState
+    case RESET:
+      return defaultState()
+    default:
+      return state
+  }
+}
 
 // // This file will contain all the actions specific to the
 // // session user's information and the session user's Redux reducer.
