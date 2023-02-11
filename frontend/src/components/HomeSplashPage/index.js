@@ -11,6 +11,7 @@ function displayHomePage() {
   // const [errors, setErrors] = useState([]);
   // const { closeModal } = useModal();
   // console.log(SpotIndex)
+
   return (
     <>
       {/* <SpotIndex /> */}
