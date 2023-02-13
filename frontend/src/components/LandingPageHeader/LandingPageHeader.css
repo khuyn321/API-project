@@ -1,0 +1,19 @@
+.btn {
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 16px;
+  padding: 16px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #ff385c;
+  color: white;
+}
+
+hr.navline {
+  border: 1px solid #cccccc
+}
