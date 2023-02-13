@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import SpotIndex from './SpotsIndex';
-import "./HomePage.css";
+import "./LandingPageHeader.css";
+import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux";;
 
 
@@ -15,10 +15,12 @@ function displayHomePage() {
   return (
     <>
       {/* <SpotIndex /> */}
-      <h1>Not sure where to go? Perfect.</h1>
-      <div>
-        <button className="btn">I'm flexible</button>
-      </div>
+      {/* <h1>Not sure where to go? Perfect.</h1> */}
+      {/* <Link rel="icon" type="image/x-icon" href="/favicon.ico" /> */}
+      <hr className="navline"></hr>
+      {/* <div> */}
+      {/* <button className="btn">I'm flexible</button> */}
+      {/* </div> */}
     </>
   );
 }

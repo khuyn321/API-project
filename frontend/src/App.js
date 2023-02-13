@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import displayHomePage from "./components/HomeSplashPage"
+import displayHomePage from "./components/LandingPageHeader"
 
 function App() {
   const dispatch = useDispatch();
