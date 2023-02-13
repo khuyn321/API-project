@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./LandingPageHeader.css";
+// import logo from './favicon.ico'
 import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux";;
 

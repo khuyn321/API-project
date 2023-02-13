@@ -26,5 +26,10 @@
   "homepage": "https://github.com/khuyn321/API-project#readme",
   "dependencies": {
     "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "favicons": "^7.0.2",
+    "favicons-webpack-plugin": "^6.0.0"
   }
 }
