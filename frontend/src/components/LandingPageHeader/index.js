@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./LandingPageHeader.css";
-// import logo from './favicon.ico'
 import { Link } from 'react-router-dom'
-import { useDispatch } from "react-redux";;
+import { useDispatch } from "react-redux";
 
 
 function displayHomePage() {
@@ -15,13 +14,10 @@ function displayHomePage() {
 
   return (
     <>
-      {/* <SpotIndex /> */}
-      {/* <h1>Not sure where to go? Perfect.</h1> */}
-      {/* <Link rel="icon" type="image/x-icon" href="/favicon.ico" /> */}
+      {/* <div className="logo-div">
+        <img src={logo} />
+      </div> */}
       <hr className="navline"></hr>
-      {/* <div> */}
-      {/* <button className="btn">I'm flexible</button> */}
-      {/* </div> */}
     </>
   );
 }

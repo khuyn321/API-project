@@ -1,0 +1,14 @@
+h1 {
+  margin-top: 50px;
+  font-family: 'Pacifico';
+  font-size: 22px;
+  text-align: center;
+}
+
+div.login-form-container {
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+}
