@@ -1,11 +1,11 @@
 import { csrfFetch } from "./csrf";
 
 // thunk action to grab all spots
-export const readThunk = () => async (dispatch) => {
+export const getAllSpots = () => async (dispatch) => {
   const res = await csrfFetch('/api/spots')
   if (res.ok) {
-    const spots = await res.json()
-    dispatch((actionReadSpots(spots)))
+    const payload = await res.json()
+    dispatch((actionReadSpots(payload)))
   }
 }
 
