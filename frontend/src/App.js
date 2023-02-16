@@ -3,7 +3,10 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import displayHomePage from "./components/LandingPageHeader"
+// import displayHomePage from "./components/LandingPageHeader"
+import SpotsIndex from "./components/SpotsIndex"
+import SpotShow from "./components/SpotShow"
+
 
 function App() {
   const dispatch = useDispatch();
@@ -14,12 +17,23 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+      <div className='header'>
+        <div id='header-navbar'>
+          <Navigation isLoaded={isLoaded} />
+          <hr className="navline"></hr>
+        </div>
+      </div >
       {isLoaded && (
         <Switch>
-          <Route exact path="/" component={displayHomePage} />
+          <Route exact path="/">
+            <SpotsIndex />
+          </Route>
+          <Route path="/spots/:spotId">
+            <SpotShow />
+          </Route>
         </Switch>
-      )}
+      )
+      }
     </>
   );
 }

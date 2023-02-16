@@ -1,52 +1,142 @@
 import { csrfFetch } from "./csrf";
 
-// thunk action to grab all spots
-export const getAllSpots = () => async (dispatch) => {
-  const res = await csrfFetch('/api/spots')
-  if (res.ok) {
-    const payload = await res.json()
-    dispatch((actionReadSpots(payload)))
-  }
-}
-
+const GET_ALL_SPOTS = 'spots/getAllSpots'
+const GET_A_SPOT = 'spots/getASpot'
 const CREATE = 'spots/createSpot'
+const EDIT = 'spots/editSpot'
 const DELETE = 'spots/deleteSpot'
 const RESET = 'spots/resetState'
+
+/*****************/
+// CRUD Action creators
+/*****************/
+
+export const actionGetAllSpots = (spots) => ({
+  type: GET_ALL_SPOTS,
+  spots
+})
+
+export const actionGetASpot = (spot) => ({
+  type: GET_A_SPOT,
+  spot
+})
 
 export const actionCreateSpot = (spot) => ({
   type: CREATE,
   spot
 })
 
-export const actionDeleteSpot = (id) => ({
+export const actionEditSpot = (spotId) => ({
+  type: EDIT,
+  spotId
+})
+
+export const actionDeleteSpot = (spotId) => ({
   type: DELETE,
-  id
+  spotId
 })
 
-export const actionResetState = () => ({
-  type: RESET
-})
+/*****************/
+// Thunks
+/*****************/
 
-function defaultState() {
-  const initialState = {}
-  initialSpots.forEach(spot => {
-    initialState[spot.id] = spot
-  })
-  return initialState
+// action to grab all spots
+export const getAllSpots = () => async (dispatch) => {
+  const res = await csrfFetch('/api/spots')
+  if (res.ok) {
+    const payload = await res.json()
+    dispatch(actionGetAllSpots(payload))
+    return payload
+  }
 }
 
-export default function spotsReducer(state = defaultState(), action) {
-  const newState = { ...state }
+export const getASpot = (id) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${id}`)
+  if (res.ok) {
+    const payload = await res.json()
+    dispatch(actionGetASpot(payload))
+    return payload
+  }
+}
 
+export const createSpot = (spot) => async (dispatch) => {
+  const res = await csrfFetch('/api/spots', {
+    method: 'POST',
+    body: JSON.stringify(spot)
+  })
+
+  if (res.ok) {
+    const payload = await res.json()
+    dispatch(actionCreateSpot(payload))
+    return payload
+  }
+}
+
+export const editASpot = (spot) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spot.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(spot)
+  })
+
+  if (res.ok) {
+    const payload = await res.json()
+    dispatch(editASpot(payload))
+    return payload
+  }
+}
+
+export const deleteASpot = (id) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${id}`, {
+    method: 'DELETE'
+  })
+
+  if (res.ok) {
+    const payload = await res.json()
+    dispatch(editASpot(payload))
+    return payload
+  }
+}
+
+const initialState = { page: 1, size: 20 };
+
+// function defaultState() {
+//   const initialState = {}
+//   initialSpots.forEach(spot => {
+//     initialState[spot.id] = spot
+//   })
+//   return initialState
+// }
+
+/***
+const GET_ALL_SPOTS = 'spots/getAllSpots'
+const GET_A_SPOT = 'spots/getASpot'
+const CREATE = 'spots/createSpot'
+const EDIT = 'spots/editSpot'
+const DELETE = 'spots/deleteSpot'
+const RESET = 'spots/resetState'
+ */
+
+export default function spotsReducer(state = initialState, action) {
   switch (action.type) {
-    case CREATE:
-      newState[action.spot.id] = action.spot
+    case GET_ALL_SPOTS: {
+      return action.spots
+    }
+    case GET_A_SPOT: {
+      const newState = { ...state, aSpot: action.spot }
       return newState
-    case DELETE:
-      delete newState[action.id]
+    }
+    case CREATE: {
+      const newState = { ...state }
       return newState
+    }
+    case DELETE: {
+      const newState = { ...state }
+      delete newState.Spots[action.spotId]
+      delete newState.aSpot
+      return newState
+    }
     case RESET:
-      return defaultState()
+      return initialState()
     default:
       return state
   }
@@ -54,185 +144,3 @@ export default function spotsReducer(state = defaultState(), action) {
 
 // // This file will contain all the actions specific to the
 // // session user's information and the session user's Redux reducer.
-
-// import { csrfFetch } from './csrf';
-
-// const SET_USER = 'session/setUser';
-// const REMOVE_USER = 'session/removeUser';
-
-// const setUser = (user) => {
-//   return {
-//     type: SET_USER,
-//     payload: user,
-//   };
-// };
-
-// const removeUser = () => {
-//   return {
-//     type: REMOVE_USER,
-//   };
-// };
-
-// export const getSpots = (spot) => async (dispatch) => {
-//   const { username, firstName, lastName, email, password } = spot;
-//   const response = await csrfFetch("/api/users", {
-//     method: "POST",
-//     body: JSON.stringify({
-//       username,
-//       firstName,
-//       lastName,
-//       email,
-//       password,
-//     }),
-//   });
-//   const data = await response.json();
-//   dispatch(setUser(data.user));
-//   return response;
-// };
-
-// export const login = (user) => async (dispatch) => {
-//   const { credential, password } = user;
-//   const response = await csrfFetch('/api/session', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       credential,
-//       password,
-//     }),
-//   });
-//   const data = await response.json();
-//   dispatch(setUser(data.user));
-//   return response;
-// };
-
-// export const logout = () => async (dispatch) => {
-//   const response = await csrfFetch('/api/session', {
-//     method: 'DELETE',
-//   });
-//   dispatch(removeUser());
-//   return response;
-// };
-
-// const initialState = { user: null };
-
-// const sessionReducer = (state = initialState, action) => {
-//   let newState;
-//   switch (action.type) {
-//     case SET_USER:
-//       newState = Object.assign({}, state);
-//       newState.user = action.payload;
-//       return newState;
-//     case REMOVE_USER:
-//       newState = Object.assign({}, state);
-//       newState.user = null;
-//       return newState;
-//     default:
-//       return state;
-//   }
-// };
-
-// export const restoreUser = () => async dispatch => {
-//   const response = await csrfFetch('/api/session');
-//   const data = await response.json();
-//   dispatch(setUser(data.user));
-//   return response;
-// };
-// // ...
-
-// export default sessionReducer;
-
-// import --> actions --> thunks --> reducer
-
-/**
-  spots: {
-    // Notice there are two slices of state within spots. This is to handle your two different routes for getting a spot.
-    // Refer to your API Docs to get more information.
-    allSpots: {
-      [spotId]: {
-        spotData,
-      },
-      // These optional ordered lists are for you to be able to store an order in which you want your data displayed.
-      // you can do this on the frontend instead of in your slice is state which is why it is optional.
-      optionalOrderedList: [],
-    },
-    // Notice singleSpot has more data that the allSpots slice. Review your API Docs for more information.
-    singleSpot: {
-      spotData,
-      SpotImages: [imagesData],
-      Owner: {
-        ownerData,
-      },
-    },
-  },
-  // Again the idea here is two have separate slices for the different data responses you receive from your routes.
-  // For example, you could use each of these slices specifically for the component you are dealing with on the frontend.
-
-  spots: {
-    // Notice there are two slices of state within spots. This is to handle your two different routes for getting a spot.
-    // Refer to your API Docs to get more information.
-    allSpots: {
-      [spotId]: {
-        spotData,
-      },
-      // These optional ordered lists are for you to be able to store an order in which you want your data displayed.
-      // you can do this on the frontend instead of in your slice is state which is why it is optional.
-      optionalOrderedList: [],
-    },
-    // Notice singleSpot has more data that the allSpots slice. Review your API Docs for more information.
-    singleSpot: {
-      spotData,
-      SpotImages: [imagesData],
-      Owner: {
-        ownerData,
-      },
-    },
-  },
-  // Again the idea here is two have separate slices for the different data responses you receive from your routes.
-  // For example, you could use each of these slices specifically for the component you are dealing with on the frontend.
-
-  spots: {
-    // Notice there are two slices of state within spots. This is to handle your two different routes for getting a spot.
-    // Refer to your API Docs to get more information.
-    allSpots: {
-      [spotId]: {
-        spotData,
-      },
-      // These optional ordered lists are for you to be able to store an order in which you want your data displayed.
-      // you can do this on the frontend instead of in your slice is state which is why it is optional.
-      optionalOrderedList: [],
-    },
-    // Notice singleSpot has more data that the allSpots slice. Review your API Docs for more information.
-    singleSpot: {
-      spotData,
-      SpotImages: [imagesData],
-      Owner: {
-        ownerData,
-      },
-    },
-  },
-  // Again the idea here is two have separate slices for the different data responses you receive from your routes.
-  // For example, you could use each of these slices specifically for the component you are dealing with on the frontend.
-
-  spots: {
-    // Notice there are two slices of state within spots. This is to handle your two different routes for getting a spot.
-    // Refer to your API Docs to get more information.
-    allSpots: {
-      [spotId]: {
-        spotData,
-      },
-      // These optional ordered lists are for you to be able to store an order in which you want your data displayed.
-      // you can do this on the frontend instead of in your slice is state which is why it is optional.
-      optionalOrderedList: [],
-    },
-    // Notice singleSpot has more data that the allSpots slice. Review your API Docs for more information.
-    singleSpot: {
-      spotData,
-      SpotImages: [imagesData],
-      Owner: {
-        ownerData,
-      },
-    },
-  },
-  // Again the idea here is two have separate slices for the different data responses you receive from your routes.
-  // For example, you could use each of these slices specifically for the component you are dealing with on the frontend.
-
- */
