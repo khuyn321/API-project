@@ -45,12 +45,13 @@ export const getAllSpots = () => async (dispatch) => {
   const res = await csrfFetch('/api/spots')
   if (res.ok) {
     const payload = await res.json()
-    dispatch(actionGetAllSpots(payload))
+    dispatch(actionGetAllSpots(payload.Spots))
     return payload
   }
 }
 
 export const getASpot = (id) => async (dispatch) => {
+  console.log("IN THE THUNK:", id)
   const res = await csrfFetch(`/api/spots/${id}`)
   if (res.ok) {
     const payload = await res.json()
@@ -97,7 +98,7 @@ export const deleteASpot = (id) => async (dispatch) => {
   }
 }
 
-const initialState = { page: 1, size: 20 };
+const initialState = { allSpots: {}, singleSpot: {} }
 
 // function defaultState() {
 //   const initialState = {}
@@ -119,20 +120,25 @@ const RESET = 'spots/resetState'
 export default function spotsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_SPOTS: {
-      return action.spots
+      const newState = { allSpots: {}, singleSpot: {} };
+      action.spots.forEach(spot => {
+        newState.allSpots[spot.id] = spot
+      })
+      return newState
     }
     case GET_A_SPOT: {
-      const newState = { ...state, aSpot: action.spot }
+      const newState = { ...state, singleSpot: action.spot }
       return newState
     }
     case CREATE: {
-      const newState = { ...state }
+      const newState = { allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot } };
+      newState.singleSpot = action.spot;
       return newState
     }
     case DELETE: {
       const newState = { ...state }
       delete newState.Spots[action.spotId]
-      delete newState.aSpot
+      delete newState.singeSpot
       return newState
     }
     case RESET:

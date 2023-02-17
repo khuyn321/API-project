@@ -8,7 +8,7 @@ import { getAllSpots } from '../../store/spots'
 export default function SpotsIndex() {
   const dispatch = useDispatch();
 
-  const spotsObj = useSelector(state => state.spots)
+  const spotsObj = useSelector(state => state.spots.allSpots)
   const spots = Object.values(spotsObj)
 
   console.log(`THIS IS SPOTS: ${spots}`)

@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-
+  // console.log("ISLOADED:", isLoaded)
   return (
     <>
       <div className='header'>
