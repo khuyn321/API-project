@@ -12,9 +12,12 @@ export default function SpotShow() {
   const history = useHistory();
   const [errors, setErrors] = useState([]);
 
-  const spot = useSelector(state => state.aSpot);
+  console.log("THIS IS THE SPOT ID:", spotId)
+
+  const spot = useSelector(state => state.spots.singleSpot);
   const user = useSelector(state => state.session.user)
   useEffect(() => {
+    console.log("I ran!!")
     dispatch(getASpot(spotId))
   }, [dispatch])
 
@@ -29,12 +32,16 @@ export default function SpotShow() {
     // for errors from a button click, create error state and set errors to returned errors
   }
 
+  console.log("THIS IS SPOT:", spot)
+  if (!spot.SpotImages) return null
 
-  if (!spot) return null
+  // for (let index = 1; index < 5; index++) {
+  //   spot.SpotImages[index] ??= { url: "https://images.pexels.com/photos/4439444/pexels-photo-4439444.jpeg" }
+  // }
 
-  for (let index = 1; index < 5; index++) {
-    spot.SpotImages[index] ??= { url: "https://images.pexels.com/photos/4439444/pexels-photo-4439444.jpeg" }
-  }
+  // return (
+  //   <h2>HELLO!!!</h2>
+  // )
 
   return (
     <div>
@@ -48,7 +55,7 @@ export default function SpotShow() {
               <i></i>
             </div>
             <div>
-              {Math.round(spot.avgStarRating) || "New"} · {spot.numReviews} Reviews
+              {/* {Math.round(spot.avgStarRating) || "New"} · {spot.numReviews} Reviews */}
             </div>
           </div>
           <div>.</div>
