@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { deleteASpot, getASpot } from "../../store/spots.js";
 import './SpotShow.css'
 import { Link } from "react-router-dom";
-// import ReviewIndex from "../Reviews/ReviewIndex";
+import ReviewsIndex from "../ReviewsIndex";
 
 export default function SpotShow() {
   const dispatch = useDispatch();
@@ -12,12 +12,12 @@ export default function SpotShow() {
   const history = useHistory();
   const [errors, setErrors] = useState([]);
 
-  console.log("THIS IS THE SPOT ID:", spotId)
+  // console.log("THIS IS THE SPOT ID:", spotId)
 
   const spot = useSelector(state => state.spots.singleSpot);
   const user = useSelector(state => state.session.user)
   useEffect(() => {
-    console.log("I ran!!")
+    // console.log("I ran!!")
     dispatch(getASpot(spotId))
   }, [dispatch])
 
@@ -32,7 +32,7 @@ export default function SpotShow() {
     // for errors from a button click, create error state and set errors to returned errors
   }
 
-  console.log("THIS IS SPOT:", spot)
+  // console.log("THIS IS SPOT:", spot)
   if (!spot.SpotImages) return null
 
   // for (let index = 1; index < 5; index++) {
@@ -55,7 +55,7 @@ export default function SpotShow() {
               <i></i>
             </div>
             <div>
-              {/* {Math.round(spot.avgStarRating) || "New"} · {spot.numReviews} Reviews */}
+              {Math.round(spot.avgStarRating) || "New"} · {spot.numReviews} Reviews
             </div>
           </div>
           <div>.</div>
@@ -128,7 +128,7 @@ export default function SpotShow() {
         </div>
       </div>
       <div>
-        (reviews will go here)
+        <ReviewsIndex spot={spot} />
       </div>
     </div >
   );
