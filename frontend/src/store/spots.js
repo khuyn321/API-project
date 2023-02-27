@@ -138,7 +138,7 @@ export default function spotsReducer(state = initialState, action) {
     case DELETE: {
       const newState = { ...state }
       delete newState.Spots[action.spotId]
-      delete newState.singeSpot
+      delete newState.singleSpot
       return newState
     }
     case RESET:
