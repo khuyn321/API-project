@@ -1,3 +1,8 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
 #spotsIndex {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, auto));
