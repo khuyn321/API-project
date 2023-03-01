@@ -11,7 +11,7 @@ export default function SpotsIndex() {
   const spotsObj = useSelector(state => state.spots.allSpots)
   const spots = Object.values(spotsObj)
 
-  console.log(`THIS IS SPOTS: ${spots}`)
+  // console.log(`THIS IS SPOTS: ${spots}`)
 
   useEffect(() => {
     dispatch(getAllSpots())
@@ -20,7 +20,7 @@ export default function SpotsIndex() {
   if (spots.length === 0 || !spots) return null;
 
   return (
-    <section>
+    <section id="section-spotsIndex">
       <div id="spotsIndex">
         {
           spots.map(spot => (
@@ -31,12 +31,12 @@ export default function SpotsIndex() {
                   (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
               </div>
               <div className="spot-description-container">
-                <div className='spot-location-rating-container'>
-                  <p>{spot.city}, {spot.state}</p>
-                  <div className='spot-rating-container'>
-                    <p>{(spot.avgRating ? <b>★ {(Number(spot.avgRating)).toFixed(2)}</b> : (<p>No reviews yet</p>))}</p>
-                  </div>
+
+                <p>{spot.city}, {spot.state}</p>
+                <div className='spot-rating-container'>
+                  <p>{(spot.avgRating ? <b>★ {(Number(spot.avgRating)).toFixed(2)}</b> : (<p className='ratings-no-reviews'>No reviews</p>))}</p>
                 </div>
+
                 <p>
                   <span><b>${spot.price}</b></span> night
                 </p>

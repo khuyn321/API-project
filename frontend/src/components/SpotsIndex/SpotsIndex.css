@@ -5,10 +5,15 @@ a {
 
 #spotsIndex {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* TODO ^^^ Figure out how to get rid of extra margin on the right */
   padding-top: 2rem;
-  column-gap: 2rem;
-  row-gap: 3rem;
+  padding-top: 2rem;
+  padding-right: 3rem;
+  padding-left: 3rem;
+  grid-gap: 3rem 2rem;
+  max-width: 1126px;
+  font-family: "Figtree", Arial, Helvetica, sans-serif;
 }
 
 /*
@@ -17,6 +22,7 @@ a {
 } */
 
 .spot-location-rating-container {
+  margin-top: 1em;
   display: flex;
   justify-content: space-between;
 }
@@ -31,4 +37,24 @@ a {
   object-fit: cover;
   height: 100%;
   width: 100%;
+}
+
+.spot-description-container p {
+  margin: 1px;
+}
+
+.spot-description-container {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-auto-rows: auto;
+  grid-gap: 10px;
+}
+
+.ratings-no-reviews {
+  color: lightgray;
+}
+
+.spot-rating-container {
+  text-align: right;
 }
