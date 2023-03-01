@@ -33,13 +33,12 @@ export default function SpotsIndex() {
               <div className="spot-description-container">
                 <div >
                   <p>{spot.city}, {spot.state}</p>
-                  <p>Available Now!</p>
+                  <div>
+                    <p>{(spot.avgRating ? <b>★ {(Number(spot.avgRating)).toFixed(2)}</b> : (<p>No reviews yet</p>))}</p>
+                  </div>
                   <p>
-                    <span>${spot.price}</span> night
+                    <span><b>${spot.price}</b></span> night
                   </p>
-                </div>
-                <div>
-                  <p><i></i>{(spot.avgRating ? (Number(spot.avgRating)).toFixed(2) : (<p>new</p>))}</p>
                 </div>
               </div>
             </Link>
