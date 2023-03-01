@@ -1,0 +1,24 @@
+#spotsIndex {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  padding-top: 2rem;
+  column-gap: 2rem;
+  row-gap: 3rem;
+}
+
+/*
+.spot-container {
+  display: flex;
+} */
+
+.spot-image-container {
+  border-radius: 12px;
+  overflow: hidden;
+  height: 80%;
+}
+
+.spot-image-container img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}

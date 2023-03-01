@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
 // import { actionResetState } from '../store/spots'
 import { getAllSpots } from '../../store/spots'
-// import 'SpotsIndex.css'
+import './SpotsIndex.css'
 
 export default function SpotsIndex() {
   const dispatch = useDispatch();
@@ -21,16 +21,16 @@ export default function SpotsIndex() {
 
   return (
     <section>
-      <div>
+      <div id="spotsIndex">
         {
           spots.map(spot => (
             <Link to={`spots/${spot.id}`}>
-              <div>
+              <div className='spot-image-container'>
                 {spot.previewImage ?
                   (<img src={`${spot.previewImage}`} />) :
                   (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
               </div>
-              <div className="eachspot-content-description">
+              <div className="spot-description-container">
                 <div >
                   <p>{spot.city}, {spot.state}</p>
                   <p>Available Now!</p>
