@@ -16,6 +16,11 @@ a {
   display: flex;
 } */
 
+.spot-location-rating-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .spot-image-container {
   border-radius: 12px;
   overflow: hidden;

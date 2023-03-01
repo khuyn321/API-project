@@ -31,15 +31,15 @@ export default function SpotsIndex() {
                   (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
               </div>
               <div className="spot-description-container">
-                <div >
+                <div className='spot-location-rating-container'>
                   <p>{spot.city}, {spot.state}</p>
-                  <div>
+                  <div className='spot-rating-container'>
                     <p>{(spot.avgRating ? <b>★ {(Number(spot.avgRating)).toFixed(2)}</b> : (<p>No reviews yet</p>))}</p>
                   </div>
-                  <p>
-                    <span><b>${spot.price}</b></span> night
-                  </p>
                 </div>
+                <p>
+                  <span><b>${spot.price}</b></span> night
+                </p>
               </div>
             </Link>
           ))
