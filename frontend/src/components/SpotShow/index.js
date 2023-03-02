@@ -44,8 +44,8 @@ export default function SpotShow() {
   // )
 
   return (
-    <div>
-      <div>
+    <div className='spot-container'>
+      <div className="header-details-container">
         <div>
           {spot.name}
         </div>
@@ -64,7 +64,7 @@ export default function SpotShow() {
           </div>
         </div>
       </div>
-      <div>
+      <div className="spot-images-container">
         <div>
           <img src={`${spot.SpotImages[0]?.url}`}></img>
         </div>
@@ -75,7 +75,6 @@ export default function SpotShow() {
             </div>
           })}
         </div>
-
       </div>
       <div>
         <div>
