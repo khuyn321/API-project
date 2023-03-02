@@ -1,0 +1,46 @@
+.spot-container {
+  font-family: "Figtree", Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  color: rgb(54, 54, 54);
+}
+
+/* .header-details-container {} */
+
+.spot-header-details-container {
+  font-size: small;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  padding-bottom: 2em;
+}
+
+.main-spot-img {
+  border-radius: 15px;
+  overflow: hidden;
+  height: 80%;
+}
+
+.main-spot-img img {
+  object-fit: cover;
+  height: 60%;
+  width: 60%;
+}
+
+.spot-header-details-container div {
+  padding: 0px 5px;
+}
+
+mini-avg-star-rating {
+  font-weight: bold;
+}
+
+#mini-reviews-num {
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+.spot-header-location-details {
+  text-decoration: underline;
+}
