@@ -44,38 +44,33 @@ export default function SpotShow() {
   // )
 
   return (
-    <div>
-      <div>
-        <div>
-          {spot.name}
+    <div className='spot-container'>
+      <div className="header-details-container">
+        <div className="spot-name">
+          <h2>
+            {spot.name}
+          </h2>
         </div>
-        <div>
-          <div>
-            <div>
-              <i></i>
-            </div>
-            <div>
-              {Math.round(spot.avgStarRating) || "New"} · {spot.numReviews} Reviews
-            </div>
+        <div className="spot-header-details-container">
+          <div className='spot-header-mini-ratings'>
+            <b id='mini-avg-star-rating'>★ {Math.round(spot.avgStarRating) || "New"} </b> · <b id='mini-reviews-num'>{spot.numReviews} reviews</b>
           </div>
-          <div>.</div>
-          <div>
+          <div className="spot-header-location-details">
             {spot.city}, {spot.state}, {spot.country}
           </div>
         </div>
       </div>
-      <div>
-        <div>
+      <div className="spot-images-container">
+        <div className="main-spot-img">
           <img src={`${spot.SpotImages[0]?.url}`}></img>
         </div>
-        <div>
+        <div className="other-spot-imgs">
           {spot.SpotImages.slice(1).map(image => {
             return <div>
               <img src={`${image.url}`}></img>
             </div>
           })}
         </div>
-
       </div>
       <div>
         <div>
