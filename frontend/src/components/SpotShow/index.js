@@ -53,7 +53,7 @@ export default function SpotShow() {
         </div>
         <div className="spot-header-details-container">
           <div className='spot-header-mini-ratings'>
-            <b id='mini-avg-star-rating'>★ {Math.round(spot.avgStarRating) || "New"} </b> · <b id='mini-reviews-num'>{spot.numReviews} reviews</b>
+            <b id='mini-avg-star-rating'><span id='star-rating-1'>★</span> {Math.round(spot.avgStarRating) || "New"} </b> · <b id='mini-reviews-num'>{spot.numReviews} reviews</b>
           </div>
           <div className="spot-header-location-details">
             {spot.city}, {spot.state}, {spot.country}
@@ -72,45 +72,45 @@ export default function SpotShow() {
           })}
         </div>
       </div>
-      <div>
-        <div>
+      <div className="spot-details-container">
+        <div className="spot-details-container-1">
           <div>
             <div>
-              <div>Entire home hosted by {spot.Owner.firstName}</div>
-              <div>16 guests5 bedrooms10 beds3 baths</div>
+              <div><h3>Entire home hosted by {spot.Owner.firstName}</h3></div>
             </div>
           </div>
-          <div>
+          <div className="spot-details-container-1-a">
             <div>
               <span>air</span>cover
             </div>
             <div>
               Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
             </div>
-          </div>
-
-          <div>
-            {spot.description}
+            <div>
+              {spot.description}
+            </div>
           </div>
 
         </div>
-        <div>
-          <div>
-            <div>
-              <div> <span id="right-spot-price">${spot.price}</span> night</div>
-              <div>
+        <div className="spot-details-container-2">
+          <div className="spot-details-container-2-a">
+            <div className="spot-details-container-2-a-1">
+              <div className="spot-details-container-2-a-1-a">
+                <div className="spot-details-container-2-a-1-a-1"> <span id="right-spot-price">${spot.price}</span> night</div>
+                <div className="spot-details-container-2-a-1-a-2">
 
-                {spot.numReviews > 0 && <>
-                  <div>
-                    <i></i>
-                    {Number(spot.avgStarRating).toFixed(2) || "New"}
-                  </div>
-                  <div>
-                    {spot.numReviews > 0 && <>{spot.numReviews} Reviews</>}
-                  </div>
-                </>
-                }
+                  {spot.numReviews > 0 && <>
+                    <div>
+                      <span id='star-rating-2'>★</span> {Number(spot.avgStarRating).toFixed(2) || "New"}
+                    </div>
+                    <div>
+                      {spot.numReviews > 0 && <>{spot.numReviews} Reviews</>}
+                    </div>
+                  </>
+                  }
+                </div>
               </div>
+              <button onclick="alert('Feature coming soon')" className="reserve-button"> Reserve </button>
             </div>
             {user && user.id === spot.Owner.id && <div>
 
@@ -122,7 +122,8 @@ export default function SpotShow() {
           </div>
         </div>
       </div>
-      <div>
+      <hr />
+      <div className="reviews-index-container">
         <ReviewsIndex spot={spot} />
       </div>
     </div >

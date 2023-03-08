@@ -34,7 +34,7 @@ export default function SpotsIndex() {
 
                 <p>{spot.city}, {spot.state}</p>
                 <div className='spot-rating-container'>
-                  <p>{(spot.avgRating ? <b>★ {(Number(spot.avgRating)).toFixed(2)}</b> : (<p className='ratings-no-reviews'>No reviews</p>))}</p>
+                  <p>{(spot.avgRating ? <b><span id='rating-star'>★</span> {(Number(spot.avgRating)).toFixed(2)}</b> : (<p className='ratings-no-reviews'>No reviews</p>))}</p>
                 </div>
 
                 <p>

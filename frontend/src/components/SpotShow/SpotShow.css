@@ -6,6 +6,10 @@ h2 {
   color: rgb(54, 54, 54);
 }
 
+h3 {
+  font-weight: lighter;
+}
+
 /* .header-details-container {} */
 
 .spot-header-details-container {
@@ -43,4 +47,54 @@ mini-avg-star-rating {
 
 .spot-header-location-details {
   text-decoration: underline;
+}
+
+.spot-details-container {
+  display: grid;
+  grid-template-columns: 71.4% 28.6%;
+}
+
+.spot-details-container-1-a {
+  font-size: small;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.spot-details-container-2-a {
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+
+.spot-details-container-2-a-1 {
+  padding: 1em;
+  border: 3px solid black;
+  border-radius: 20px;
+}
+
+.spot-details-container-2-a-1-a {
+  display: flex;
+  flex-flow: row;
+}
+
+/*! v v v LAST POINT TOUCHED 12:42AM 3/8/2023 */
+spot-details-container-2-a-1-a-2 {
+  flex-direction: row;
+}
+
+hr {
+  border: 1px solid rgba(0, 0, 0, 0.454);
+}
+
+.reserve-button {
+  margin-top: 5px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+}
+
+.reserve-button:hover {
+  background-color: #990000;
 }
