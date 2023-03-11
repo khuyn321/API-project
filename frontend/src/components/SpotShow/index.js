@@ -6,6 +6,7 @@ import './SpotShow.css'
 import { Link } from "react-router-dom";
 import ReviewsIndex from "../ReviewsIndex";
 
+
 export default function SpotShow() {
   const dispatch = useDispatch();
   const { spotId } = useParams();
@@ -76,7 +77,7 @@ export default function SpotShow() {
         <div className="spot-details-container-1">
           <div>
             <div>
-              <div><h3>Entire home hosted by {spot.Owner.firstName}</h3></div>
+              <div><h3>Entire home hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3></div>
             </div>
           </div>
           <div className="spot-details-container-1-a">

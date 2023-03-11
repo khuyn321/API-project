@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
-import * as sessionActions from '../../store/session';
-
-function ProfileButton({ user }) {
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import * as sessionActions from '../../store/session'
+import "./Navigation.css"
+import OpenModalButton from '../OpenModalButton';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
+export default function ProfileButton({ user, setShowModal, setLogin }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  const ulRef = useRef();
-
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -15,10 +16,8 @@ function ProfileButton({ user }) {
   useEffect(() => {
     if (!showMenu) return;
 
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
+    const closeMenu = () => {
+      setShowMenu(false);
     };
 
     document.addEventListener('click', closeMenu);
@@ -31,23 +30,56 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-
   return (
-    <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+    <div id="floating-menu">
+      <button className="menu" onClick={openMenu}>
+        <i className="fa-solid fa-bars"></i>
+        <i className="fa-solid fa-circle-user"></i>
+
       </button>
-      <ul className={ulClassName} ref={ulRef}>
-        <li>{user.username}</li>
-        <li>{user.firstName} {user.lastName}</li>
-        <li>{user.email}</li>
-        <li>
-          <button onClick={logout}>Log Out</button>
-        </li>
-      </ul>
-    </>
+      {showMenu && (user ? (
+        <ul className="profile-dropdown">
+          <div id="profile-dropdown-user-info">
+            <p>{user.username}</p>
+            <p>{user.email}</p>
+          </div>
+          <li onClick={logout}>
+            Log Out
+          </li>
+        </ul>
+      ) :
+        (<ul className="profile-dropdown">
+          <li onClick={() => {
+            setShowModal(true);
+            setLogin(true);
+          }}>
+            {/* Log in */}
+            <OpenModalButton
+              buttonText="Log In"
+              modalComponent={<LoginFormModal />}
+            />
+          </li>
+          <li onClick={() => {
+            setShowModal(true);
+            setLogin(false);
+          }}>
+            {/* Sign Up */}
+            <OpenModalButton
+              buttonText="Sign Up"
+              modalComponent={<SignupFormModal />}
+            />
+          </li>
+        </ul>))
+      }
+    </div>
   );
 }
 
-export default ProfileButton;
+{/* <OpenModalButton
+buttonText="Log In"
+modalComponent={<LoginFormModal />}
+/>
+<OpenModalButton
+buttonText="Sign Up"
+modalComponent={<SignupFormModal />}
+/> */}
