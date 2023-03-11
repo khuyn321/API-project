@@ -24,24 +24,27 @@ export default function SpotsIndex() {
       <div id="spotsIndex">
         {
           spots.map(spot => (
-            <Link to={`spots/${spot.id}`}>
-              <div className='spot-image-container'>
-                {spot.previewImage ?
-                  (<img src={`${spot.previewImage}`} />) :
-                  (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
-              </div>
-              <div className="spot-description-container">
-
-                <p>{spot.city}, {spot.state}</p>
-                <div className='spot-rating-container'>
-                  <p>{(spot.avgRating ? <b><span id='rating-star'>★</span> {(Number(spot.avgRating)).toFixed(2)}</b> : (<p className='ratings-no-reviews'>No reviews</p>))}</p>
+            <div className='spot'>
+              <Link to={`spots/${spot.id}`} className='spot-link' >
+                <span className='tooltip-text'>{spot.name}</span>
+                <div className='spot-image-container'>
+                  {spot.previewImage ?
+                    (<img src={`${spot.previewImage}`} />) :
+                    (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
                 </div>
+                <div className="spot-description-container">
 
-                <p>
-                  <span><b>${spot.price}</b></span> night
-                </p>
-              </div>
-            </Link>
+                  <p>{spot.city}, {spot.state}</p>
+                  <div className='spot-rating-container'>
+                    <p>{(spot.avgRating ? <b><span id='rating-star'>★</span> {(Number(spot.avgRating)).toFixed(2)}</b> : (<p className='ratings-no-reviews'><i>New!</i></p>))}</p>
+                  </div>
+
+                  <p>
+                    <span><b>${spot.price}</b></span> night
+                  </p>
+                </div>
+              </Link>
+            </div>
           ))
         }
       </div>
