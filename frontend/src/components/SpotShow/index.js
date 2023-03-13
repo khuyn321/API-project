@@ -82,9 +82,6 @@ export default function SpotShow() {
           </div>
           <div className="spot-details-container-1-a">
             <div>
-              <span>air</span>cover
-            </div>
-            <div>
               Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
             </div>
             <div>
@@ -99,16 +96,14 @@ export default function SpotShow() {
               <div className="spot-details-container-2-a-1-a">
                 <div className="spot-details-container-2-a-1-a-1"> <span id="right-spot-price">${spot.price}</span> night</div>
                 <div className="spot-details-container-2-a-1-a-2">
-
-                  {spot.numReviews > 0 && <>
-                    <div>
-                      <span id='star-rating-2'>★</span> {Number(spot.avgStarRating).toFixed(2) || "New"}
-                    </div>
-                    <div>
-                      {spot.numReviews > 0 && <>{spot.numReviews} Reviews</>}
-                    </div>
-                  </>
-                  }
+                  <span>★</span>
+                  {spot.numReviews === 0 ? (<span className='no-reviews'><i>New!</i></span>)
+                    : spot.numReviews === 1 ? <>
+                      {Number(spot.avgStarRating).toFixed(2)} · {spot.numReviews} Review
+                    </>
+                      : <>
+                        {Number(spot.avgStarRating).toFixed(2)} · {spot.numReviews} Reviews
+                      </>}
                 </div>
               </div>
               <button onclick="alert('Feature coming soon')" className="reserve-button"> Reserve </button>
