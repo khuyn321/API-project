@@ -13,7 +13,7 @@
     <a href="https://github.com/khuyn321/API-project"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://airbnb-proj.onrender.com/">View Live Site</a>
+    <a href="https://bnbnbnbnb.onrender.com/">View Live Site</a>
     ·
     <!-- <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
     ·
