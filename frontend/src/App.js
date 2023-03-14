@@ -35,6 +35,9 @@ function App() {
           <Route path="/spot/create">
             <SpotCreateForm />
           </Route>
+          {/* <Route path="/spot/:spotId/edit">
+            <EditSpotForm />
+          </Route> */}
         </Switch>
       )
       }

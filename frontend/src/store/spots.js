@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = 'spots/getAllSpots'
 const GET_A_SPOT = 'spots/getASpot'
 const CREATE = 'spots/createSpot'
+const CREATE_SPOT_IMG = 'spots/createSpotImg'
 const EDIT = 'spots/editSpot'
 const DELETE = 'spots/deleteSpot'
 const RESET = 'spots/resetState'
@@ -23,6 +24,11 @@ export const actionGetASpot = (spot) => ({
 
 export const actionCreateSpot = (spot) => ({
   type: CREATE,
+  spot
+})
+
+export const actionCreateSpotImg = (spot) => ({
+  type: CREATE_SPOT_IMG,
   spot
 })
 
@@ -69,6 +75,19 @@ export const createSpot = (spot) => async (dispatch) => {
   if (res.ok) {
     const payload = await res.json()
     dispatch(actionCreateSpot(payload))
+    return payload
+  }
+}
+
+export const createSpotImg = (imageUrl) => async (dispatch) => {
+  const res = await csrfFetch('/api/spots', {
+    method: 'POST',
+    body: JSON.stringify(imageUrl)
+  })
+
+  if (res.ok) {
+    const payload = await res.json()
+    dispatch(actionCreateSpotImg(payload))
     return payload
   }
 }
@@ -131,6 +150,11 @@ export default function spotsReducer(state = initialState, action) {
       return newState
     }
     case CREATE: {
+      const newState = { allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot } };
+      newState.singleSpot = action.spot;
+      return newState
+    }
+    case CREATE_SPOT_IMG: {
       const newState = { allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot } };
       newState.singleSpot = action.spot;
       return newState
