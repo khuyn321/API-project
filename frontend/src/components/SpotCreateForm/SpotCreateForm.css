@@ -1,0 +1,23 @@
+.loginsignup-form {
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-bottom: 60px;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.form {
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form input {
+  margin: 10px;
+}
+
+button.submit {
+  margin: 15px;
+}

@@ -12,6 +12,7 @@ div.nav-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: blanchedalmond;
 }
 
 span.header-buttons-container {
@@ -27,12 +28,17 @@ span.header-buttons-container {
 }
 
 .menu {
-  width: 100%;
+  display: flex;
+  width: 70%;
   height: 100%;
   /* background-color: transparent; */
   background-color: aqua;
-  border: none;
+  border: 5px solid red;
+  border-radius: 10px;
   padding-right: 3em;
+  flex-direction: row;
+  /* align-items: center; */
+  /* justify-content: center; */
 }
 
 li {
