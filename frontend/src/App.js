@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 // import displayHomePage from "./components/LandingPageHeader"
 import SpotsIndex from "./components/SpotsIndex"
 import SpotShow from "./components/SpotShow"
+import SpotCreateForm from "./components/SpotCreateForm";
 
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route path="/spots/:spotId">
             <SpotShow />
+          </Route>
+          <Route path="/spot/create">
+            <SpotCreateForm />
           </Route>
         </Switch>
       )
