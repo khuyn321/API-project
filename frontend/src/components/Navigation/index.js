@@ -26,7 +26,7 @@ function Navigation({ isLoaded }) {
         </span>
       </div>
       <div className='top-right'>
-        {user && <Link id="become-a-host-button" to="/spot/create">Become a Host</Link>}
+        {user && <Link id="become-a-host-button" to="/spot/create">Create a New Spot</Link>}
         <li id="profile-button">
           {isLoaded && (
             <ProfileButton

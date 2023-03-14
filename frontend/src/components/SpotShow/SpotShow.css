@@ -98,3 +98,7 @@ hr {
 .reserve-button:hover {
   background-color: #990000;
 }
+
+.no-reviews {
+  color: gray;
+}
