@@ -55,16 +55,19 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
           }}>
             {/* Log in */}
             <OpenModalButton
+              className='menu-buttons'
               buttonText="Log In"
               modalComponent={<LoginFormModal />}
             />
           </li>
+          <hr />
           <li onClick={() => {
             setShowModal(true);
             setLogin(false);
           }}>
             {/* Sign Up */}
             <OpenModalButton
+              className='menu-buttons'
               buttonText="Sign Up"
               modalComponent={<SignupFormModal />}
             />
