@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from "react-router-dom"
-import { createSpot, createSpotImg } from "../../store/spots"
-import './SpotCreateForm.css';
+import { useHistory, useParams } from "react-router-dom"
+// import * as sessionActions from "../../store/spotsReducer"
+import * as sessionActions from "../../store/spots"
+import { useEffect } from "react"
 
-function formValidator(name, description, price, address, city, state, country, image) {
+
+function formValidator(name, description, price, address, city, state, country) {
   const errors = []
 
   if (!name) errors.push("Please provide your spot's name")
@@ -20,37 +22,48 @@ function formValidator(name, description, price, address, city, state, country, 
   if (state.length > 256) errors.push("Please keep state under 255 characters")
   if (country.length === 0) errors.push("Please enter your country")
   if (country.length > 256) errors.push("Please keep country under 255 characters")
-  if (!image) errors.push("Please provide a preview image")
 
   return errors;
 }
 
-export default function SpotCreateForm() {
+export default function EditSpotForm() {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const { spotId } = useParams();
+  const spot = useSelector(state => state.spots.singleSpot) || {}
 
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
-  const [address, setAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [country, setCountry] = useState('')
-  const [image, setImage] = useState('')
+  useEffect(() => {
+    dispatch(sessionActions.getASpot(spotId))
+  }, [dispatch, spotId]);
+
+  async function getSpot(spotId) {
+    await dispatch(sessionActions.getASpot(spotId))
+  }
+
+  const [name, setName] = useState(spot.name)
+  const [description, setDescription] = useState(spot.description)
+  const [price, setPrice] = useState(spot.price)
+  const [address, setAddress] = useState(spot.address)
+  const [city, setCity] = useState(spot.city)
+  const [state, setState] = useState(spot.state)
+  const [country, setCountry] = useState(spot.country)
   const [errors, setErrors] = useState([]);
 
   if (!user) return history.push("/")
+  if (!spot.id) return history.push(`/spots/${spotId}`)
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const errors = formValidator(name, description, price, address, city, state, country, image)
+    const errors = formValidator(name, description, price, address, city, state, country)
     if (errors.length > 0) {
-      return setErrors(errors)
+      setErrors(errors)
+      return
     }
-
     try {
-      const newSpot = await dispatch(createSpot({
+      await dispatch(sessionActions.editASpot({
+        id: spot.id,
         name,
         description,
         price,
@@ -61,21 +74,14 @@ export default function SpotCreateForm() {
         state,
         country
       }))
-
-      //! FIX/IMPLEMENT THIS CREATE IMAGE THUNK BELOW
-
-      dispatch(createSpotImg(newSpot.id, {
-        url: image,
-        preview: true
-      }))
-
     } catch (errors) {
       const data = await errors.json();
       setErrors(data.errors);
       return;
     }
 
-    return history.push("/")
+
+    return history.push(`/spots/${spot.id}`)
   }
 
   return (
@@ -83,7 +89,7 @@ export default function SpotCreateForm() {
       <div className='loginsignup-form'>
         <div className="signuplogin-form-header">
           <div className="signuplogin-form-title">
-            <h2>Create a Spot</h2>
+            <h2>Edit a Spot</h2>
           </div>
         </div>
         <form onSubmit={onSubmit} className="form">
@@ -96,7 +102,6 @@ export default function SpotCreateForm() {
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="Name"
-
           />
           <input
             className="form-mid-input"
@@ -134,18 +139,11 @@ export default function SpotCreateForm() {
             placeholder="State"
           />
           <input
-            className="form-mid-input"
+            className="form-last-input"
             type="text"
             value={country}
             onChange={e => setCountry(e.target.value)}
             placeholder="Country"
-          />
-          <input
-            className="form-last-input"
-            type="url"
-            value={image}
-            onChange={e => setImage(e.target.value)}
-            placeholder="Image Url"
           />
           <button type="submit" className="submit">Submit</button>
         </form>

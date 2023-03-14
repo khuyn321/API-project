@@ -112,7 +112,7 @@ export const deleteASpot = (id) => async (dispatch) => {
 
   if (res.ok) {
     const payload = await res.json()
-    dispatch(editASpot(payload))
+    dispatch(actionDeleteSpot(payload))
     return payload
   }
 }
