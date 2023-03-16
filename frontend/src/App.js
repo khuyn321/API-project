@@ -8,6 +8,7 @@ import SpotsIndex from "./components/SpotsIndex"
 import SpotShow from "./components/SpotShow"
 import SpotCreateForm from "./components/SpotCreateForm";
 import EditSpotForm from "./components/SpotEditForm";
+import ReviewCreateForm from "./components/ReviewCreateForm"
 
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path="/spot/:spotId/edit">
             <EditSpotForm />
+          </Route>
+          <Route path="/spot/:spotId/reviews/create">
+            <ReviewCreateForm />
           </Route>
         </Switch>
       )

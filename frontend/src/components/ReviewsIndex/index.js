@@ -73,7 +73,7 @@ export default function ReviewIndex({ spot }) {
           </button></div>) :
           <div>
             <button>
-              <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }} id="write-review">Edit Review</Link>
+              <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }} id="write-review">Delete Review</Link>
             </button>
           </div>
         }
