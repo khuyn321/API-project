@@ -62,7 +62,7 @@ export default function SpotCreateForm() {
         country
       }))
 
-      //! FIX/IMPLEMENT THIS CREATE IMAGE THUNK BELOW
+      //! FIX THIS CREATE IMAGE THUNK BELOW
 
       dispatch(createSpotImg(newSpot.id, {
         url: image,
@@ -83,71 +83,91 @@ export default function SpotCreateForm() {
       <div className='loginsignup-form'>
         <div className="signuplogin-form-header">
           <div className="signuplogin-form-title">
-            <h2>Create a Spot</h2>
+            <h2>Create a New Spot</h2>
+            <h3>Where's your place located?</h3>
+            <p>Guests will only get your exact address once they booked a reservation.</p>
           </div>
         </div>
         <form onSubmit={onSubmit} className="form">
           <ul className="errors">
             {errors.map(error => (<li key={error}>{error}</li>))}
           </ul>
-          <input
-            className="form-first-input"
-            type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="Name"
+          <section className="section-1">
+            <input
+              className="form-mid-input"
+              type="text"
+              value={country}
+              onChange={e => setCountry(e.target.value)}
+              placeholder="Country"
+            />
+            <input
+              className="form-mid-input"
+              type="text"
+              value={address}
+              onChange={e => setAddress(e.target.value)}
+              placeholder="Address"
+            />
+            <input
+              className="form-mid-input"
+              type="text"
+              value={city}
+              onChange={e => setCity(e.target.value)}
+              placeholder="City"
+            />
+            <input
+              className="form-mid-input"
+              type="text"
+              value={state}
+              onChange={e => setState(e.target.value)}
+              placeholder="STATE"
+            />
+          </section>
+          <section className="section-2">
+            <hr />
+            <div>
+              <h3></h3>
+            </div>
+            <input
+              className="form-mid-input"
+              type="text"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              placeholder="Please write at least 30 characters"
+            />
+          </section>
+          <section className="section-3">
+            <hr />
+            <input
+              className="form-first-input"
+              type="text"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              placeholder="Name of your spot"
 
-          />
-          <input
-            className="form-mid-input"
-            type="text"
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            placeholder="Description"
-          />
-          <input
-            className="form-mid-input"
-            type="number"
-            value={price}
-            onChange={e => setPrice(e.target.value)}
-            placeholder="Price"
-          />
-          <input
-            className="form-mid-input"
-            type="text"
-            value={address}
-            onChange={e => setAddress(e.target.value)}
-            placeholder="Address"
-          />
-          <input
-            className="form-mid-input"
-            type="text"
-            value={city}
-            onChange={e => setCity(e.target.value)}
-            placeholder="City"
-          />
-          <input
-            className="form-mid-input"
-            type="text"
-            value={state}
-            onChange={e => setState(e.target.value)}
-            placeholder="State"
-          />
-          <input
-            className="form-mid-input"
-            type="text"
-            value={country}
-            onChange={e => setCountry(e.target.value)}
-            placeholder="Country"
-          />
-          <input
-            className="form-last-input"
-            type="url"
-            value={image}
-            onChange={e => setImage(e.target.value)}
-            placeholder="Image Url"
-          />
-          <button type="submit" className="submit">Submit</button>
+            />
+          </section>
+          <section className="section-4">
+            <hr />
+            <input
+              className="form-mid-input"
+              type="number"
+              value={price}
+              onChange={e => setPrice(e.target.value)}
+              placeholder="Price per night (USD)"
+            />
+          </section>
+          {/*//! MAKE 5 OF THESE INSTEAD OF 1 */}
+          <section className="section-4">
+            <hr />
+            <input
+              className="form-last-input"
+              type="url"
+              value={image}
+              onChange={e => setImage(e.target.value)}
+              placeholder="Preview Image Url"
+            />
+          </section>
+          <button type="submit" className="submit">Create Spot</button>
         </form>
       </div>
     </div>

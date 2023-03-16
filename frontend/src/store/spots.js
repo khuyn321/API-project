@@ -160,10 +160,9 @@ export default function spotsReducer(state = initialState, action) {
       return newState
     }
     case DELETE: {
-      const newState = { ...state }
-      delete newState.Spots[action.spotId]
-      delete newState.singleSpot
-      return newState
+      const newState = { allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot } } //! <--
+      newState.singleSpot[action.spotId] = {}
+      //!^ ^ ^ set to an empty obj instead to reset
     }
     case RESET:
       return initialState()
