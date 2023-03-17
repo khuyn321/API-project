@@ -58,7 +58,7 @@ export default function ReviewCreateForm() {
         <form onSubmit={onSubmit} className="form">
           <ul className="errors">{errors.map(error => (<li key={error}>{error}</li>))}</ul>
           <div>
-            {/* <select
+            <select
               onChange={e => setStars(e.target.value)}
               value={stars}
               className="form-first-input"
@@ -70,7 +70,7 @@ export default function ReviewCreateForm() {
               <option>3 - it was okay</option>
               <option>4 - good</option>
               <option>5 - amazing!</option>
-            </select> */}
+            </select>
             <div class="rate">
               <input type="radio" id="star5" name="rate" value="5" />
               <label for="star5" title="text">5</label>

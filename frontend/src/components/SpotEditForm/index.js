@@ -89,7 +89,7 @@ export default function EditSpotForm() {
       <div className='loginsignup-form'>
         <div className="signuplogin-form-header">
           <div className="signuplogin-form-title">
-            <h2>Edit a Spot</h2>
+            <h2>Update your Spot</h2>
           </div>
         </div>
         <form onSubmit={onSubmit} className="form">
@@ -145,7 +145,7 @@ export default function EditSpotForm() {
             onChange={e => setCountry(e.target.value)}
             placeholder="Country"
           />
-          <button type="submit" className="submit">Submit</button>
+          <button type="submit" className="submit">Update your Spot</button>
         </form>
       </div>
     </div>
