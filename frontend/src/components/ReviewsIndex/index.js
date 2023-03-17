@@ -1,8 +1,9 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { getReviewsThunk } from "../../store/review";
+import { deleteReviewThunk, getReviewsThunk } from "../../store/review";
 import "../SpotShow/SpotShow.css"
 
 export default function ReviewIndex({ spot }) {
@@ -10,6 +11,8 @@ export default function ReviewIndex({ spot }) {
   // const ownerId = spot.ownerId
   const reviewsObj = useSelector(state => state.reviews)
   const reviews = Object.values(reviewsObj);
+  const history = useHistory();
+  const [errors, setErrors] = useState([]);
 
   console.log("THIS IS REVIEWS:", reviews)
   const user = useSelector(state => state.session.user)
@@ -30,6 +33,17 @@ export default function ReviewIndex({ spot }) {
     console.log("THIS IS USERREVIEW:", userReview)
   }
 
+  const handleDelete = async () => {
+    const deleteResponse = await dispatch(deleteReviewThunk(userReview.id))
+    if (deleteResponse.ok) {
+      history.push("/")
+    } else {
+      setErrors([deleteResponse.message])
+    }
+    // useEffect for errors for a form
+    // for errors from a button click, create error state and set errors to returned errors
+  }
+
   return (
     <div>
       <div className="review-heading">
@@ -46,6 +60,20 @@ export default function ReviewIndex({ spot }) {
 
           </p>
         </div>
+      </div>
+
+      <div className="review-edit-or-write">
+        {!userReview ?
+          (user && <div><button>
+            <Link to={`/spot/${spot.id}/reviews/create`} id="write-review">Post your review</Link>
+          </button></div>) :
+          <div>
+            {/* <button>
+              <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }} id="write-review">Edit Review</Link>
+            </button> */}
+            <button id="review-delete" onClick={handleDelete}>Delete</button>
+          </div>
+        }
       </div>
 
       <div className="review-outer-container">
@@ -65,18 +93,6 @@ export default function ReviewIndex({ spot }) {
             </div>
           </div>
         ))}
-      </div>
-      <div className="review-edit-or-write">
-        {!userReview ?
-          (user && <div><button>
-            <Link to={`/spot/${spot.id}/reviews/create`} id="write-review">Write a Review</Link>
-          </button></div>) :
-          <div>
-            <button>
-              <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }} id="write-review">Edit Review</Link>
-            </button>
-          </div>
-        }
       </div>
     </div>
   )

@@ -7,7 +7,9 @@ import Navigation from "./components/Navigation";
 import SpotsIndex from "./components/SpotsIndex"
 import SpotShow from "./components/SpotShow"
 import SpotCreateForm from "./components/SpotCreateForm";
+import SpotManagePage from "./components/SpotManagePage"
 import EditSpotForm from "./components/SpotEditForm";
+import ReviewCreateForm from "./components/ReviewCreateForm"
 
 
 function App() {
@@ -30,6 +32,9 @@ function App() {
           <Route exact path="/">
             <SpotsIndex />
           </Route>
+          <Route exact path="/spots/current">
+            <SpotManagePage />
+          </Route>
           <Route path="/spots/:spotId">
             <SpotShow />
           </Route>
@@ -38,6 +43,9 @@ function App() {
           </Route>
           <Route path="/spot/:spotId/edit">
             <EditSpotForm />
+          </Route>
+          <Route path="/spot/:spotId/reviews/create">
+            <ReviewCreateForm />
           </Route>
         </Switch>
       )

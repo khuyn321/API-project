@@ -1,0 +1,76 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#spotsIndex {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* TODO ^^^ Figure out how to get rid of extra margin on the right */
+  padding-top: 2rem;
+  padding-top: 2rem;
+  padding-right: 3rem;
+  padding-left: 3rem;
+  grid-gap: 3rem 2rem;
+  max-width: 1126px;
+  font-family: "Figtree", Arial, Helvetica, sans-serif;
+}
+
+/*
+.spot-container {
+  display: flex;
+} */
+
+.spot-location-rating-container {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.spot-image-container {
+  border-radius: 12px;
+  overflow: hidden;
+  height: 80%;
+}
+
+.spot-image-container img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.spot-description-container p {
+  margin: 1px;
+}
+
+.spot-description-container {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-auto-rows: auto;
+  grid-gap: 10px;
+}
+
+.ratings-no-reviews {
+  color: rgb(176, 176, 176);
+}
+
+.spot-rating-container {
+  text-align: right;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(255, 0, 0, 0.65);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 12px;
+  position: absolute;
+}
+
+.spot-link:hover .tooltip-text {
+  visibility: visible;
+  /* transition: opacity 3s ease-in-out; */
+}

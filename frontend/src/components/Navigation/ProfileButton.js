@@ -5,6 +5,8 @@ import "./Navigation.css"
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { Link } from "react-router-dom";
+
 export default function ProfileButton({ user, setShowModal, setLogin }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -41,9 +43,12 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
       {showMenu && (user ? (
         <ul className="profile-dropdown">
           <div id="profile-dropdown-user-info">
-            <p>{user.username}</p>
+            <p>Hello, {user.username}</p>
             <p>{user.email}</p>
           </div>
+          <li>
+            <Link to={'/spots/current'}> Manage Spots</Link>
+          </li>
           <li onClick={logout}>
             Log Out
           </li>
