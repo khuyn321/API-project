@@ -1,19 +1,30 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import './SpotManagePage.css'
 import { Link } from 'react-router-dom';
-import { getAllSpots } from '../../store/spots'
+import { getAllSpots, deleteASpot } from '../../store/spots'
 
 export default function SpotManagePage() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const spotsObj = useSelector(state => state.spots.allSpots)
   const spots = Object.values(spotsObj)
+  const history = useHistory();
+  const [errors, setErrors] = useState([]);
 
   console.log(`THIS IS SPOTS: ${spots}`)
 
   const filteredSpots = spots.filter(spot => spot.ownerId === user.id)
+
+  const handleDelete = async () => {
+    const deleteResponse = await dispatch(deleteASpot(filteredSpots.spot.id))
+    if (deleteResponse.ok) {
+      history.push("/")
+    } else {
+      setErrors([deleteResponse.message])
+    }
+  }
 
   useEffect(() => {
     dispatch(getAllSpots())
@@ -23,11 +34,15 @@ export default function SpotManagePage() {
 
   return (
     <section id="section-spotsIndex">
+      <div>
+        <h1>Manage Yours Spots</h1>
+        {user && <button><Link id="become-a-host-button" to="/spot/create">Create a New Spot</Link></button>}
+      </div>
       <div id="spotsIndex">
         {
           filteredSpots.map(spot => (
             <div className='spot'>
-              <Link to={`/${spot.id}`} className='spot-link' >
+              <Link to={`/Spots/${spot.id}`} className='spot-link' >
                 <span className='tooltip-text'>{spot.name}</span>
                 <div className='spot-image-container'>
                   {spot.previewImage ?
@@ -40,12 +55,26 @@ export default function SpotManagePage() {
                   <div className='spot-rating-container'>
                     <p>{(spot.avgRating ? <b><span id='rating-star'>★</span> {(Number(spot.avgRating)).toFixed(2)}</b> : (<p className='ratings-no-reviews'><i>New!</i></p>))}</p>
                   </div>
-
                   <p>
                     <span><b>${spot.price}</b></span> night
                   </p>
+
+
                 </div>
               </Link>
+              <div className="update-&-delete-buttons">
+                <Link to={`/spot/${spot.id}/edit`} > <button>Update</button></Link>
+                <button id="spot-delete" onClick={
+                  async () => {
+                    const deleteResponse = await dispatch(deleteASpot(spot.id))
+                    if (deleteResponse.ok) {
+                      history.push("/spots/current")
+                    } else {
+                      setErrors([deleteResponse.message])
+                    }
+                  }
+                }>Delete</button>
+              </div>
             </div>
           ))
         }
