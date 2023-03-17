@@ -172,7 +172,7 @@ export default function spotsReducer(state = initialState, action) {
       //!^ ^ ^ set to an empty obj instead to reset
     }
     case RESET:
-      return initialState()
+      return initialState
     default:
       return state
   }
