@@ -79,10 +79,17 @@ export const createSpot = (spot) => async (dispatch) => {
   }
 }
 
-export const createSpotImg = (imageUrl) => async (dispatch) => {
-  const res = await csrfFetch('/api/spots', {
+export const createSpotImg = (spotImage) => async (dispatch) => {
+  // console.log("SPOT FROM THUNK: " + spot)
+  // console.log("SPOTID FROM THUNK: " + spotId)
+  // console.log("SPOTIMAGE FROM THUNK: " + spotImage)
+  // console.log("URL FROM THUNK: " + url)
+  // console.log("IMAGEURL FROM THUNK: " + imageUrl)
+  console.log("SPOTIMAGE FROM THUNK: " + spotImage)
+
+  const res = await csrfFetch(`/api/spots/${spotImage.spotId}/images`, {
     method: 'POST',
-    body: JSON.stringify(imageUrl)
+    body: JSON.stringify(spotImage)
   })
 
   if (res.ok) {

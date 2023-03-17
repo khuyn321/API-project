@@ -59,12 +59,16 @@ export default function SpotCreateForm() {
         address,
         city,
         state,
-        country
+        country,
+
       }))
 
       //! FIX THIS CREATE IMAGE THUNK BELOW
 
-      dispatch(createSpotImg(newSpot.id, {
+      console.log("THIS IS IMAGE ON SUBMIT: " + image)
+
+      dispatch(createSpotImg({
+        spotId: newSpot.id,
         url: image,
         preview: true
       }))
