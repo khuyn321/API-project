@@ -108,13 +108,13 @@ export default function SpotShow() {
               </div>
               <button onclick="alert('Feature coming soon')" className="reserve-button"> Reserve </button>
             </div>
-            {user && user.id === spot.Owner.id && <div>
+            {/* {user && user.id === spot.Owner.id && <div>
 
               <Link to={`/spot/${spotId}/edit`} > <button>Update</button></Link>
 
               <button id="spot-delete" onClick={handleDelete}>Delete</button>
 
-            </div>}
+            </div>} */}
           </div>
         </div>
       </div>

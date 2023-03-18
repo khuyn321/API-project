@@ -86,40 +86,45 @@ export default function SpotCreateForm() {
     <div className="spots-form">
       <div className='loginsignup-form'>
         <div className="signuplogin-form-header">
-          <div className="signuplogin-form-title">
-            <h2>Create a New Spot</h2>
-            <h3>Where's your place located?</h3>
-            <p>Guests will only get your exact address once they booked a reservation.</p>
-          </div>
+          <h2>Create a New Spot</h2>
         </div>
         <form onSubmit={onSubmit} className="form">
           <ul className="errors">
             {errors.map(error => (<li key={error}>{error}</li>))}
           </ul>
+          <div className="signuplogin-form-title">
+            <h3>Where's your place located?</h3>
+            <p>Guests will only get your exact address once they booked a reservation.</p>
+          </div>
           <section className="section-1">
+            <p>Country</p>
             <input
-              className="form-mid-input"
+              className="input-country"
               type="text"
               value={country}
               onChange={e => setCountry(e.target.value)}
               placeholder="Country"
             />
+            <p>Street Address</p>
             <input
-              className="form-mid-input"
+              className="input-address"
               type="text"
               value={address}
               onChange={e => setAddress(e.target.value)}
               placeholder="Address"
             />
+            <p>City</p>
             <input
-              className="form-mid-input"
+              className="input-city"
               type="text"
               value={city}
               onChange={e => setCity(e.target.value)}
               placeholder="City"
             />
+            <span><b> , </b></span>
+            <p>State</p>
             <input
-              className="form-mid-input"
+              className="input-state"
               type="text"
               value={state}
               onChange={e => setState(e.target.value)}
@@ -129,10 +134,11 @@ export default function SpotCreateForm() {
           <section className="section-2">
             <hr />
             <div>
-              <h3></h3>
+              <h3>Describe your place to guests</h3>
+              <p>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
             </div>
             <input
-              className="form-mid-input"
+              className="input-description"
               type="text"
               value={description}
               onChange={e => setDescription(e.target.value)}
@@ -141,28 +147,40 @@ export default function SpotCreateForm() {
           </section>
           <section className="section-3">
             <hr />
+            <div>
+              <h3>Create a title for your spot</h3>
+              <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
+            </div>
             <input
-              className="form-first-input"
+              className="input-name"
               type="text"
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="Name of your spot"
-
             />
           </section>
           <section className="section-4">
             <hr />
+            <div>
+              <h3>Set a base price for your spot</h3>
+              <p>Competitive pricing can help your listing stand out and rank higher in search results</p>
+            </div>
+            <span><b> $ </b></span>
             <input
-              className="form-mid-input"
+              className="input-price"
               type="number"
               value={price}
               onChange={e => setPrice(e.target.value)}
               placeholder="Price per night (USD)"
             />
           </section>
-          {/*//! MAKE 5 OF THESE INSTEAD OF 1 */}
+          {/*//!!!! MAKE 5 OF THESE INSTEAD OF 1 !!!*/}
           <section className="section-4">
             <hr />
+            <div>
+              <h3>Liven up your spot with photos</h3>
+              <p>Submit a link to at least one photo to publish your spot</p>
+            </div>
             <input
               className="form-last-input"
               type="url"
@@ -170,6 +188,35 @@ export default function SpotCreateForm() {
               onChange={e => setImage(e.target.value)}
               placeholder="Preview Image Url"
             />
+            <input
+              className="form-last-input"
+              type="url"
+              value={image}
+              onChange={e => setImage(e.target.value)}
+              placeholder="Image Url"
+            />
+            <input
+              className="form-last-input"
+              type="url"
+              value={image}
+              onChange={e => setImage(e.target.value)}
+              placeholder="Image Url"
+            />
+            <input
+              className="form-last-input"
+              type="url"
+              value={image}
+              onChange={e => setImage(e.target.value)}
+              placeholder="Image Url"
+            />
+            <input
+              className="form-last-input"
+              type="url"
+              value={image}
+              onChange={e => setImage(e.target.value)}
+              placeholder="Image Url"
+            />
+            <hr />
           </section>
           <button type="submit" className="submit">Create Spot</button>
         </form>
