@@ -78,7 +78,7 @@ export default function ReviewIndex({ spot }) {
                 <i className="fa-solid fa-circle-user"></i>
               </div>
               <div className="review-top-right">
-                <div className="review-name">{spot.User.firstName}</div>
+                <div className="review-name"> 🔵 {spot.User.firstName}</div>
                 <div className="review-date">{new Date(spot.createdAt).toLocaleString("en-US", { month: "long", year: "numeric" })}</div>
               </div>
             </div>
@@ -86,7 +86,7 @@ export default function ReviewIndex({ spot }) {
               <div>{spot.review}</div>
             </div>
           </div>
-        ))}
+        )).reverse()}
       </div>
     </div>
   )
