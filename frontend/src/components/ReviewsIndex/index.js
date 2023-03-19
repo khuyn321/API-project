@@ -69,18 +69,20 @@ export default function ReviewIndex({ spot }) {
 
 </div>} */}
       <div className="review-edit-or-write">
-        {user.id === spot.Owner.id ?
-          (<></>) :
-          !userReview ?
+        {user ? (
+          !userReview && (user.id !== spot.Owner.id) ?
             (user && <div><button>
               <Link to={`/spot/${spot.id}/reviews/create`} id="write-review">Post your review</Link>
             </button></div>)
-            : <div>
-              {/* <button>
+            : user.id !== spot.Owner.id ?
+              <div>
+                {/* <button>
               <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }} id="write-review">Edit Review</Link>
             </button> */}
-              <button id="review-delete" onClick={handleDelete}>Delete</button>
-            </div>
+                <button id="review-delete" onClick={handleDelete}>Delete</button>
+              </div>
+              : <></>)
+          : <></>
         }
       </div>
 

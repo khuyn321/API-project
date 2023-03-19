@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
-// import { useModal } from "../../context/Modal";
-// import { useHistory } from 'react-router-dom';
+import { useModal } from "../../context/Modal";
+import { useHistory } from 'react-router-dom';
 import "./LoginForm.css";
 
 // function formValidator(name, description, price, address, city, state, country, image) {
@@ -28,16 +28,16 @@ function LoginFormModal({ setShowModal }) {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-  // const history = useHistory();
+  const history = useHistory();
   // const [showModal, setShowModal] = useState(false)
-  // const { closeModal } = useModal();
+  const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
-      .then(() => setShowModal(false))
-      // .then(() => history.push('/'))
+      .then(closeModal)
+      .then(() => history.push('/'))
       .catch(
         async (res) => {
           const data = await res.json();
@@ -46,19 +46,19 @@ function LoginFormModal({ setShowModal }) {
       );
   };
 
-  function demoLogin(e) {
-    e.preventDefault();
-    setErrors([])
-    // e.stopPropagation();
-    return dispatch(sessionActions.login({ credential: "DaBestDemoUser", password: "password" }))
-      .then(() => setShowModal(false))
-      .catch(
-        async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        }
-      );
-  };
+  // function demoLogin(e) {
+  //   e.preventDefault();
+  //   setErrors([])
+  //   // e.stopPropagation();
+  //   return dispatch(sessionActions.login({ credential: "DaBestDemoUser", password: "password" }))
+  //     .then(() => setShowModal(false))
+  //     .catch(
+  //       async (res) => {
+  //         const data = await res.json();
+  //         if (data && data.errors) setErrors(data.errors);
+  //       }
+  //     );
+  // };
 
 
   // const onSubmit = async (e) => {
@@ -112,49 +112,62 @@ function LoginFormModal({ setShowModal }) {
           placeholder='Password'
           required
         />
-        <button type="submit" className="submit">
+        <button
+          type="submit"
+          className="submit"
+          disabled={credential.length < 4 || password.length < 6}
+        >
           Log In</button>
-        <button className="submit" id="demo-user" onClick={demoLogin}>
+        <button
+          className="submit"
+          id="demo-user"
+          // onClick={demoLogin}
+          onClick={() => {
+            setCredential('DaBestDemoUser')
+            setPassword('password')
+          }}
+        >
           Log In as Demo User</button>
       </form>
     </div >
 
-    //   <>
-    //     <h1>Log In</h1>
-    //     <form onSubmit={handleSubmit}>
-    //       <div className="login-form-container">
-    //         <ul>
-    //           {errors.map((error, idx) => (
-    //             <li key={idx}>{error}</li>
-    //           ))}
-    //         </ul>
-    //         <label>
-    //           Username or Email
-    //           <div className='login-form-credential-container'>
-    //             <input
-    //               type="text"
-    //               value={credential}
-    //               onChange={(e) => setCredential(e.target.value)}
-    //               required
-    //             />
-    //           </div>
-    //         </label>
-    //         <label>
-    //           Password
-    //           <div className="login-form-password-container">
-    //             <input
-    //               type="password"
-    //               value={password}
-    //               onChange={(e) => setPassword(e.target.value)}
-    //               required
-    //             />
-    //           </div>
-    //         </label>
-    //         <button type="submit">Log In</button>
-    //       </div>
-    //     </form>
-    //   </>
   );
 }
 
 export default LoginFormModal;
+
+//   <>
+//     <h1>Log In</h1>
+//     <form onSubmit={handleSubmit}>
+//       <div className="login-form-container">
+//         <ul>
+//           {errors.map((error, idx) => (
+//             <li key={idx}>{error}</li>
+//           ))}
+//         </ul>
+//         <label>
+//           Username or Email
+//           <div className='login-form-credential-container'>
+//             <input
+//               type="text"
+//               value={credential}
+//               onChange={(e) => setCredential(e.target.value)}
+//               required
+//             />
+//           </div>
+//         </label>
+//         <label>
+//           Password
+//           <div className="login-form-password-container">
+//             <input
+//               type="password"
+//               value={password}
+//               onChange={(e) => setPassword(e.target.value)}
+//               required
+//             />
+//           </div>
+//         </label>
+//         <button type="submit">Log In</button>
+//       </div>
+//     </form>
+//   </>
