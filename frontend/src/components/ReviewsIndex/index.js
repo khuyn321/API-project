@@ -13,12 +13,9 @@ export default function ReviewIndex({ spot }) {
   const reviews = Object.values(reviewsObj);
   const history = useHistory();
   const [errors, setErrors] = useState([]);
-
-  console.log("THIS IS REVIEWS:", reviews)
   const user = useSelector(state => state.session.user)
 
   useEffect(() => {
-    console.log("I ran!!")
     dispatch(getReviewsThunk(spot.id));
   }, [dispatch])
 
@@ -30,7 +27,6 @@ export default function ReviewIndex({ spot }) {
   let userReview;
   if (reviews.length && user) {
     userReview = reviews.find(review => user.id === review.User.id);
-    console.log("THIS IS USERREVIEW:", userReview)
   }
 
   const handleDelete = async () => {
@@ -40,8 +36,6 @@ export default function ReviewIndex({ spot }) {
     } else {
       setErrors([deleteResponse.message])
     }
-    // useEffect for errors for a form
-    // for errors from a button click, create error state and set errors to returned errors
   }
 
   return (
@@ -61,13 +55,6 @@ export default function ReviewIndex({ spot }) {
           </p>
         </div>
       </div>
-      {/* {user && user.id === spot.Owner.id && <div>
-
-<Link to={`/spot/${spotId}/edit`} > <button>Update</button></Link>
-
-<button id="spot-delete" onClick={handleDelete}>Delete</button>
-
-</div>} */}
       <div className="review-edit-or-write">
         {user ? (
           !userReview && (user.id !== spot.Owner.id) ?
@@ -76,9 +63,6 @@ export default function ReviewIndex({ spot }) {
             </button></div>)
             : user.id !== spot.Owner.id ?
               <div>
-                {/* <button>
-              <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }} id="write-review">Edit Review</Link>
-            </button> */}
                 <button id="review-delete" onClick={handleDelete}>Delete</button>
               </div>
               : <></>)
@@ -107,3 +91,22 @@ export default function ReviewIndex({ spot }) {
     </div>
   )
 }
+
+// console.log("THIS IS REVIEWS:", reviews)
+// console.log("I ran!!")
+// console.log("THIS IS USERREVIEW:", userReview)
+
+// useEffect for errors for a form
+// for errors from a button click, create error state and set errors to returned errors
+
+{/* {user && user.id === spot.Owner.id && <div>
+
+<Link to={`/spot/${spotId}/edit`} > <button>Update</button></Link>
+
+<button id="spot-delete" onClick={handleDelete}>Delete</button>
+
+</div>} */}
+
+{/* <button>
+              <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }} id="write-review">Edit Review</Link>
+            </button> */}

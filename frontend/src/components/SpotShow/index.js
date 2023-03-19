@@ -106,7 +106,11 @@ export default function SpotShow() {
                       </>}
                 </div>
               </div>
-              <button onclick="alert('Feature coming soon')" className="reserve-button"> Reserve </button>
+              <button
+                className="reserve-button"
+                onClick={() => window.alert('Feature coming soon!')}>
+                Reserve
+              </button>
             </div>
             {/* {user && user.id === spot.Owner.id && <div>
 
@@ -115,6 +119,7 @@ export default function SpotShow() {
               <button id="spot-delete" onClick={handleDelete}>Delete</button>
 
             </div>} */}
+
           </div>
         </div>
       </div>

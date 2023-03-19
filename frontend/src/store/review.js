@@ -41,7 +41,6 @@ export const getReviewsThunk = (spotId) => async dispatch => {
 
   if (res.ok) {
     const payload = await res.json();
-    console.log("THIS IS MY THUNK PAYLOAD: ", payload)
     dispatch(actionGetReviews(payload.Reviews));
     return payload
   }
@@ -102,9 +101,6 @@ const reviewsReducer = (state = initialState, action) => {
         newState[review.id] = review
       })
       return newState
-
-      // const newState = { ...state };
-      // return newState
     }
     case CREATE_REVIEW: {
       const newState = { ...state };
@@ -124,3 +120,9 @@ const reviewsReducer = (state = initialState, action) => {
 }
 
 export default reviewsReducer
+
+// console.log("THIS IS MY THUNK PAYLOAD: ", payload)
+
+
+      // const newState = { ...state };
+      // return newState
