@@ -37,9 +37,13 @@ function Navigation({ isLoaded }) {
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
               {login ? (
-                <LoginFormModal setShowModal={setShowModal} />
+                <LoginFormModal
+                //  setShowModal={showModal}
+                />
               ) : (
-                <SignupFormModal setShowModal={setShowModal} />
+                <SignupFormModal
+                // setShowModal={showModal}
+                />
               )}
               {/* <OpenModalButton
                 buttonText="Log In"
