@@ -72,6 +72,7 @@ export default function SpotCreateForm() {
         url: image,
         preview: true
       }))
+        .then(() => history.push(`/spots/${newSpot.id}`))
 
     } catch (errors) {
       const data = await errors.json();
