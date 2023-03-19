@@ -89,7 +89,14 @@ export default function ReviewCreateForm() {
             <textarea id="create-review-text-area" className="form-last-input" value={feedback} onChange={event => setFeedback(event.target.value)} placeholder="Leave your review here..." />
           </div>
           < div>
-            <button type="submit" className="submit">Submit Your Review</button>
+            <button
+              type="submit"
+              className="submit"
+              disabled={
+                !stars ||
+                feedback.length < 10
+              }
+            >Submit Your Review</button>
           </div>
         </form>
       </div>
