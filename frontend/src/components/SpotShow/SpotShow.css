@@ -1,5 +1,6 @@
 .spot-container {
   font-family: "Figtree", Arial, Helvetica, sans-serif;
+  padding: 0px 50px;
 }
 
 h2 {
@@ -87,7 +88,7 @@ hr {
 
 .reserve-button {
   margin-top: 5px;
-  background-color: #ff0000;
+  background-color: #00c8fb;
   color: #ffffff;
   border-radius: 10px;
   padding: 10px 20px;
@@ -96,9 +97,13 @@ hr {
 }
 
 .reserve-button:hover {
-  background-color: #990000;
+  background-color: #0073db;
 }
 
 .no-reviews {
   color: gray;
 }
+
+/* logo blue - 009fff */
+/* slightly brighter blue - 00c8fb */
+/* darker blue - 0073db */

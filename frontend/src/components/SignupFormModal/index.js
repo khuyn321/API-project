@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -106,7 +106,20 @@ function SignupFormModal({ setShowModal }) {
               />
             </label>
           </div>
-          <button type="submit">Sign Up</button>
+          <button
+            id="form-submit-button"
+            type="submit"
+            disabled={
+              email.length < 1 ||
+              username.length < 4 ||
+              firstName.length < 1 ||
+              lastName.length < 1 ||
+              password.length < 6 ||
+              password !== confirmPassword
+            }
+          >
+            Sign Up
+          </button>
         </div>
       </form>
     </>
@@ -114,3 +127,37 @@ function SignupFormModal({ setShowModal }) {
 }
 
 export default SignupFormModal
+
+
+
+  // const handleDisable = useEffect(() => {
+  //   let isDisabled = false;
+
+  //   if (email.length === 0 ||
+  //     username.length === 0 ||
+  //     firstName.length === 0 ||
+  //     lastName.length === 0 ||
+  //     password.length === 0 ||
+  //     confirmPassword.length === 0) {
+  //     isDisabled = true
+  //   }
+  //   return isDisabled
+
+  // const button = document.getElementById("form-submit-button")
+  // if (button) {
+  //   button.disabled = isDisabled
+  // }
+  // }, [email, username, firstName, lastName, password, confirmPassword])
+
+  // const disableButton = () => {
+  // if (email.length === 0 ||
+  //   username.length === 0 ||
+  //   firstName.length === 0 ||
+  //   lastName.length === 0 ||
+  //   password.length === 0 ||
+  //   confirmPassword.length === 0
+  //   ) {
+  //     return true
+  //   }
+
+  // }

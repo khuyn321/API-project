@@ -65,13 +65,13 @@ export default function ReviewCreateForm() {
               id="create-review-select"
             >
               <option value="" disabled>Rate your experience!</option>
-              <option>1 - terrible</option>
-              <option>2 - could have been better</option>
-              <option>3 - it was okay</option>
-              <option>4 - good</option>
-              <option>5 - amazing!</option>
-            </select>
-            <div class="rate">
+              <option>1 ★- awful </option>
+              <option>2 ★★ - could be better </option>
+              <option>3 ★★★ - okay </option>
+              <option>4 ★★★★ - good </option>
+              <option>5 ★★★★★ - wonderful! </option>
+            </select> Stars
+            {/* <div class="rate">
               <input type="radio" id="star5" name="rate" value="5" />
               <label for="star5" title="text">5</label>
               <input type="radio" id="star4" name="rate" value="4" />
@@ -83,13 +83,20 @@ export default function ReviewCreateForm() {
               <input type="radio" id="star1" name="rate" value="1" />
               <label for="star1" title="text">1</label>
               Stars
-            </div>
+            </div> */}
           </div>
           <div>
             <textarea id="create-review-text-area" className="form-last-input" value={feedback} onChange={event => setFeedback(event.target.value)} placeholder="Leave your review here..." />
           </div>
           < div>
-            <button type="submit" className="submit">Submit Your Review</button>
+            <button
+              type="submit"
+              className="submit"
+              disabled={
+                !stars ||
+                feedback.length < 10
+              }
+            >Submit Your Review</button>
           </div>
         </form>
       </div>
