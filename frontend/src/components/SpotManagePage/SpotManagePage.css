@@ -74,3 +74,26 @@ a {
   visibility: visible;
   /* transition: opacity 3s ease-in-out; */
 }
+
+.manage-spots-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.manage-spots-header div h1 {
+  padding-bottom: 2em;
+}
+
+#become-a-host-button-2 {
+  margin-bottom: 2em;
+  background-color: #c7e7ff;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+}
+
+#become-a-host-button-2 a {
+  color: #8eb4d8;
+}

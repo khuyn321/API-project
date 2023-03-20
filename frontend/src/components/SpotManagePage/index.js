@@ -34,9 +34,11 @@ export default function SpotManagePage() {
 
   return (
     <section id="section-spotsIndex">
-      <div>
-        <h1>Manage Yours Spots</h1>
-        {user && <button><Link id="become-a-host-button" to="/spot/create">Create a New Spot</Link></button>}
+      <div className="manage-spots-header">
+        <div>
+          <h1>Manage Yours Spots</h1></div>
+        <div>
+          {user && <button id="become-a-host-button-2"><Link to="/spot/create">Create a New Spot</Link></button>}</div>
       </div>
       <div id="spotsIndex">
         {
@@ -49,19 +51,18 @@ export default function SpotManagePage() {
                     (<img src={`${spot.previewImage}`} />) :
                     (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
                 </div>
-                <div className="spot-description-container">
-
-                  <p>{spot.city}, {spot.state}</p>
-                  <div className='spot-rating-container'>
-                    <p>{(spot.avgRating ? <b><span id='rating-star'>★</span> {(Number(spot.avgRating)).toFixed(2)}</b> : (<p className='ratings-no-reviews'><i>New!</i></p>))}</p>
-                  </div>
-                  <p>
-                    <span><b>${spot.price}</b></span> night
-                  </p>
-
-
-                </div>
               </Link>
+              <div className="spot-description-container">
+
+                <p>{spot.city}, {spot.state}</p>
+                <div className='spot-rating-container'>
+                  <p>{(spot.avgRating ? <b><span id='rating-star'>★</span> {(Number(spot.avgRating)).toFixed(2)}</b> : (<p className='ratings-no-reviews'><i>New!</i></p>))}</p>
+                </div>
+                <p>
+                  <span><b>${spot.price}</b></span> night
+                </p>
+              </div>
+
               <div className="update-&-delete-buttons">
                 <Link to={`/spot/${spot.id}/edit`} > <button>Update</button></Link>
                 <button id="spot-delete" onClick={

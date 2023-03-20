@@ -14,7 +14,7 @@ const SpotIndexItem = ({ Spot }) => {
   return (
     <li>
       <Link to={`/Spots/${Spot.id}`}>Spot #{Spot.id}</Link>
-      <Link to={`/Spots/${Spot.id}/edit`}>Edit</Link>
+      {/* <Link to={`/Spots/${Spot.id}/edit`}>Edit</Link> */}
       <button onClick={deleteSpot}>Delete</button>
     </li>
   );
