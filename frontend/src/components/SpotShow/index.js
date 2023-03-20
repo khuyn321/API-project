@@ -66,11 +66,15 @@ export default function SpotShow() {
           <img src={`${spot.SpotImages[0]?.url}`}></img>
         </div>
         <div className="other-spot-imgs">
-          {spot.SpotImages.slice(1).map(image => {
+          <div><img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg"></img>
+            <img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg"></img></div>
+          <div><img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg"></img>
+            <img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg"></img></div>
+          {/* {spot.SpotImages.slice(1).map(image => {
             return <div>
               <img src={`${image.url}`}></img>
             </div>
-          })}
+          })} */}
         </div>
       </div>
       <div className="spot-details-container">
@@ -81,9 +85,6 @@ export default function SpotShow() {
             </div>
           </div>
           <div className="spot-details-container-1-a">
-            <div>
-              Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
-            </div>
             <div>
               {spot.description}
             </div>

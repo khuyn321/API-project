@@ -21,11 +21,11 @@ h3 {
   padding-bottom: 2em;
 }
 
-.main-spot-img {
+/* .main-spot-img {
   border-radius: 15px;
   overflow: hidden;
   height: 80%;
-}
+} */
 
 .main-spot-img img {
   object-fit: cover;
@@ -67,6 +67,7 @@ mini-avg-star-rating {
 }
 
 .spot-details-container-2-a-1 {
+  margin-top: 1em;
   padding: 1em;
   border: 3px solid black;
   border-radius: 20px;
@@ -107,3 +108,32 @@ hr {
 /* logo blue - 009fff */
 /* slightly brighter blue - 00c8fb */
 /* darker blue - 0073db */
+
+.spot-images-container {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  width: 80%;
+
+}
+
+.other-spot-imgs {
+  display: flex;
+  flex-direction: row;
+}
+
+.other-spot-imgs div {
+  width: auto;
+  height: auto;
+}
+
+.main-spot-img {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.main-spot-img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
