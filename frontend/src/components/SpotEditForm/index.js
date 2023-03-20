@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom"
 // import * as sessionActions from "../../store/spotsReducer"
 import * as sessionActions from "../../store/spots"
 import { useEffect } from "react"
+import './SpotEditForm.css'
 
 
 function formValidator(name, description, price, address, city, state, country) {
@@ -38,9 +39,26 @@ export default function EditSpotForm() {
     dispatch(sessionActions.getASpot(spotId))
   }, [dispatch, spotId]);
 
-  async function getSpot(spotId) {
-    await dispatch(sessionActions.getASpot(spotId))
-  }
+  // async function getSpot(spotId) {
+  //   await dispatch(sessionActions.getASpot(spotId))
+  // }
+
+  // useEffect(() => {
+  //   async function getSpot(spotId) {
+  //     await dispatch(sessionActions.getASpot(spotId))
+  //   }
+  //   if (getSpot) {
+  //     console.log('its working?')
+  //   }
+  // }, [dispatch, spotId]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //   }, 3000);
+  // })
+  // if (!user) return history.push("/")
+  // if (!spot.id) return history.push(`/spots/${spotId}`)
+
 
   const [name, setName] = useState(spot.name)
   const [description, setDescription] = useState(spot.description)
@@ -51,7 +69,7 @@ export default function EditSpotForm() {
   const [country, setCountry] = useState(spot.country)
   const [errors, setErrors] = useState([]);
 
-  if (!user) return history.push("/")
+  // if (!user) return history.push("/")
   if (!spot.id) return history.push(`/spots/${spotId}`)
 
   const onSubmit = async (e) => {
@@ -96,27 +114,15 @@ export default function EditSpotForm() {
           <ul className="errors">
             {errors.map(error => (<li key={error}>{error}</li>))}
           </ul>
+          <h3>Country</h3>
           <input
-            className="form-first-input"
+            className="form-last-input"
             type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="Name"
+            value={country}
+            onChange={e => setCountry(e.target.value)}
+            placeholder="Country"
           />
-          <input
-            className="form-mid-input"
-            type="text"
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            placeholder="Description"
-          />
-          <input
-            className="form-mid-input"
-            type="number"
-            value={price}
-            onChange={e => setPrice(e.target.value)}
-            placeholder="Price"
-          />
+          <h3>Street Address</h3>
           <input
             className="form-mid-input"
             type="text"
@@ -124,6 +130,7 @@ export default function EditSpotForm() {
             onChange={e => setAddress(e.target.value)}
             placeholder="Address"
           />
+          <h3>City</h3>
           <input
             className="form-mid-input"
             type="text"
@@ -131,6 +138,7 @@ export default function EditSpotForm() {
             onChange={e => setCity(e.target.value)}
             placeholder="City"
           />
+          <h3>State</h3>
           <input
             className="form-mid-input"
             type="text"
@@ -138,12 +146,29 @@ export default function EditSpotForm() {
             onChange={e => setState(e.target.value)}
             placeholder="State"
           />
+          <h3>Description</h3>
           <input
-            className="form-last-input"
+            className="form-mid-input"
             type="text"
-            value={country}
-            onChange={e => setCountry(e.target.value)}
-            placeholder="Country"
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            placeholder="Description"
+          />
+          <h3>Name</h3>
+          <input
+            className="form-first-input"
+            type="text"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Name"
+          />
+          <h3>Price</h3>
+          <input
+            className="form-mid-input"
+            type="number"
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+            placeholder="Price"
           />
           <button type="submit" className="submit">Update your Spot</button>
         </form>

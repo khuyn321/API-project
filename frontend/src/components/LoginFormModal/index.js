@@ -6,23 +6,6 @@ import { useModal } from "../../context/Modal";
 import { useHistory } from 'react-router-dom';
 import "./LoginForm.css";
 
-// function formValidator(name, description, price, address, city, state, country, image) {
-//   const errors = []
-
-//   if (!name) errors.push("Please provide your spot's name")
-//   else if (name.length > 255) errors.push("Name cannot be longer than 255 characters")
-//   if (description.length === 0) errors.push("Description cannot be empty")
-//   else if (description.length > 255) errors.push("Description cannot be over 255 characters");
-//   if (price < 0 || price > 100000) errors.push("Price cannot exceed $100,000")
-//   return errors;
-// }
-
-// function formValidator(credential, password) {
-//   const errors = []
-
-//   if ()
-// }
-
 function LoginFormModal({ setShowModal }) {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
@@ -45,39 +28,6 @@ function LoginFormModal({ setShowModal }) {
         }
       );
   };
-
-  // function demoLogin(e) {
-  //   e.preventDefault();
-  //   setErrors([])
-  //   // e.stopPropagation();
-  //   return dispatch(sessionActions.login({ credential: "DaBestDemoUser", password: "password" }))
-  //     .then(() => setShowModal(false))
-  //     .catch(
-  //       async (res) => {
-  //         const data = await res.json();
-  //         if (data && data.errors) setErrors(data.errors);
-  //       }
-  //     );
-  // };
-
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const errors = formValidator(credential, password)
-  //   // setErrors([])
-  //   if (errors.length > 0) {
-  //     return setErrors(errors)
-  //   }
-  //   try {
-  //     dispatch(sessionActions.login({ credential, password }))
-  //     setShowModal(false)
-  //   } catch (errors) {
-  //     const data = await errors.json();
-  //     setErrors(data.errors);
-  //     return;
-  //   }
-  //   return history.push("/")
-  // }
 
   return (
     <div className='login-form-container'>
@@ -136,6 +86,24 @@ function LoginFormModal({ setShowModal }) {
 
 export default LoginFormModal;
 
+
+// function formValidator(name, description, price, address, city, state, country, image) {
+//   const errors = []
+
+//   if (!name) errors.push("Please provide your spot's name")
+//   else if (name.length > 255) errors.push("Name cannot be longer than 255 characters")
+//   if (description.length === 0) errors.push("Description cannot be empty")
+//   else if (description.length > 255) errors.push("Description cannot be over 255 characters");
+//   if (price < 0 || price > 100000) errors.push("Price cannot exceed $100,000")
+//   return errors;
+// }
+
+// function formValidator(credential, password) {
+//   const errors = []
+
+//   if ()
+// }
+
 //   <>
 //     <h1>Log In</h1>
 //     <form onSubmit={handleSubmit}>
@@ -171,3 +139,36 @@ export default LoginFormModal;
 //       </div>
 //     </form>
 //   </>
+
+// function demoLogin(e) {
+  //   e.preventDefault();
+  //   setErrors([])
+  //   // e.stopPropagation();
+  //   return dispatch(sessionActions.login({ credential: "DaBestDemoUser", password: "password" }))
+  //     .then(() => setShowModal(false))
+  //     .catch(
+  //       async (res) => {
+  //         const data = await res.json();
+  //         if (data && data.errors) setErrors(data.errors);
+  //       }
+  //     );
+  // };
+
+
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const errors = formValidator(credential, password)
+  //   // setErrors([])
+  //   if (errors.length > 0) {
+  //     return setErrors(errors)
+  //   }
+  //   try {
+  //     dispatch(sessionActions.login({ credential, password }))
+  //     setShowModal(false)
+  //   } catch (errors) {
+  //     const data = await errors.json();
+  //     setErrors(data.errors);
+  //     return;
+  //   }
+  //   return history.push("/")
+  // }

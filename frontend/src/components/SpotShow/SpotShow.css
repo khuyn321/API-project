@@ -7,6 +7,13 @@ h2 {
   color: rgb(54, 54, 54);
 }
 
+.spot-name h2 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  color: #7087c5;
+  font-size: xx-large;
+}
+
 h3 {
   font-weight: lighter;
 }
@@ -21,11 +28,11 @@ h3 {
   padding-bottom: 2em;
 }
 
-.main-spot-img {
+/* .main-spot-img {
   border-radius: 15px;
   overflow: hidden;
   height: 80%;
-}
+} */
 
 .main-spot-img img {
   object-fit: cover;
@@ -55,9 +62,14 @@ mini-avg-star-rating {
   grid-template-columns: 71.4% 28.6%;
 }
 
+.spot-details-container-1 div div div h3 {
+  font-style: italic;
+  color: #6960b6
+}
+
 .spot-details-container-1-a {
-  font-size: small;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  font-size: medium;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .spot-details-container-2-a {
@@ -67,6 +79,7 @@ mini-avg-star-rating {
 }
 
 .spot-details-container-2-a-1 {
+  margin-top: 1em;
   padding: 1em;
   border: 3px solid black;
   border-radius: 20px;
@@ -107,3 +120,55 @@ hr {
 /* logo blue - 009fff */
 /* slightly brighter blue - 00c8fb */
 /* darker blue - 0073db */
+
+.spot-images-container {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  width: 80%;
+
+}
+
+.other-spot-imgs {
+  display: flex;
+  flex-direction: row;
+}
+
+.other-spot-imgs div {
+  width: auto;
+  height: auto;
+}
+
+.main-spot-img {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.main-spot-img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* .review-delete-button {
+  background-color: aqua;
+} */
+
+.review-delete-button button {
+  /* background-color: hotpink; */
+  width: 5em;
+  height: 2em;
+  border-radius: 10px;
+  border: none;
+  background-color: #6960b6;
+  color: #ffffff;
+  margin-bottom: 1em;
+}
+
+.review-delete-button button::before {
+  content: "Delete";
+}
+
+.review-delete-button button:hover {
+  background-color: #0073db;
+}

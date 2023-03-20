@@ -11,4 +11,6 @@ div.login-form-container {
   margin-bottom: 60px;
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 }
