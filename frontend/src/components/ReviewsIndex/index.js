@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { deleteReviewThunk, getReviewsThunk } from "../../store/review";
-import "../SpotShow/SpotShow.css"
+import "./ReviewsIndex.css"
 import ReviewDeleteModal from "../ReviewDeleteModal";
 import OpenModalButton from "../OpenModalButton"
 
@@ -112,7 +112,7 @@ export default function ReviewIndex({ spot }) {
                 <i className="fa-solid fa-circle-user"></i>
               </div>
               <div className="review-top-right">
-                <div className="review-name"> 🔵 {spot.User.firstName}</div>
+                <div className="review-name"> 🔵 <span id="review-name-span">{spot.User.firstName}</span></div>
                 <div className="review-date">{new Date(spot.createdAt).toLocaleString("en-US", { month: "long", year: "numeric" })}</div>
               </div>
             </div>

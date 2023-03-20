@@ -1,0 +1,22 @@
+.review-container {
+  margin: 1em 0px;
+}
+
+#review-name-span {
+  font-style: italic;
+  font-weight: bold;
+  font-size: large;
+  color: #2b7cc3;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.review-date {
+  color: #9491b0;
+  margin-top: 5px;
+}
+
+.review-bottom-description {
+  margin-top: 10px;
+  margin-bottom: 25px;
+  color: #2a2270;
+}
