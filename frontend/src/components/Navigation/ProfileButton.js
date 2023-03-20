@@ -43,7 +43,14 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
       <button className="menu" onClick={openMenu}>
         {/* <i className="fa-solid fa-bars"></i>
         <i className="fa-solid fa-circle-user"></i> */}
-        ☰👤
+        <div className="hamburger-profile-icons">
+          <div id="hamburger">
+            ☰
+          </div>
+          <div id="profile">
+            👤
+          </div>
+        </div>
 
       </button>
       {showMenu && (user ? (
@@ -51,10 +58,12 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
           <div id="profile-dropdown-user-info">
             <p>Hello, {user.username}</p>
             <p>{user.email}</p>
+            <hr />
           </div>
           <li>
             <Link to={'/spots/current'}> Manage Spots</Link>
           </li>
+          <hr />
           <li onClick={logout}>
             Log Out
           </li>

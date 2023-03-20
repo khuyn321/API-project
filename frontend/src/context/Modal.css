@@ -21,4 +21,30 @@
 #modal-content {
   position: absolute;
   background-color: white;
+  height: 22em;
+  width: 25em;
+  border-radius: 3em;
+}
+
+h1 {
+  font-style: italic;
+  font-weight: bolder;
+  color: #42596e;
+  margin: 0px 0px;
+  padding: 0px 0px;
+}
+
+/*
+.login-form-container {
+  height: auto;
+  width: auto;
+} */
+
+
+.signup-form-container div {
+  margin-bottom: .5em;
+}
+
+.signup-form-container div label input {
+  margin-left: 10px;
 }
