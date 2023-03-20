@@ -112,3 +112,7 @@ a {
 .update-delete-buttons button:hover {
   background-color: #0073db;
 }
+
+.spot-delete-button button::before {
+  content: "Delete";
+}

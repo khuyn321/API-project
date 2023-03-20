@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import './SpotManagePage.css'
 import { Link } from 'react-router-dom';
 import { getAllSpots, deleteASpot } from '../../store/spots'
+import OpenModalButton from "../OpenModalButton"
+import SpotDeleteModal from "../SpotDeleteModal"
 
 export default function SpotManagePage() {
   const dispatch = useDispatch();
@@ -11,20 +13,31 @@ export default function SpotManagePage() {
   const spotsObj = useSelector(state => state.spots.allSpots)
   const spots = Object.values(spotsObj)
   const history = useHistory();
+  const ulRef = useRef();
   const [errors, setErrors] = useState([]);
+  const [showMenu, setShowMenu] = useState(false)
 
-  console.log(`THIS IS SPOTS: ${spots}`)
+  const open = () => {
+    if (showMenu) return;
+    setShowMenu(true)
+  }
+  const close = () => setShowMenu(false)
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const close = (e) => {
+      if (!ulRef.current.contains(e.target)) setShowMenu(false);
+    }
+
+    document.addEventListener('click', close);
+
+    return () => document.removeEventListener('click', close);
+  }, [showMenu])
+
+  // console.log(`THIS IS SPOTS: ${spots}`)
 
   const filteredSpots = spots.filter(spot => spot.ownerId === user.id)
-
-  const handleDelete = async () => {
-    const deleteResponse = await dispatch(deleteASpot(filteredSpots.spot.id))
-    if (deleteResponse.ok) {
-      history.push("/")
-    } else {
-      setErrors([deleteResponse.message])
-    }
-  }
 
   useEffect(() => {
     dispatch(getAllSpots())
@@ -65,16 +78,19 @@ export default function SpotManagePage() {
 
               <div className="update-delete-buttons">
                 <Link to={`/spot/${spot.id}/edit`} > <button>Update</button></Link>
-                <button id="spot-delete" onClick={
-                  async () => {
-                    const deleteResponse = await dispatch(deleteASpot(spot.id))
-                    if (deleteResponse.ok) {
-                      history.push("/spots/current")
-                    } else {
-                      setErrors([deleteResponse.message])
-                    }
-                  }
-                }>Delete</button>
+                <div className="spot-delete-button">
+                  <OpenModalButton
+                    id="spot-delete"
+                    itemText={`Delete`}
+                    onClick={open}
+                    onItemClick={close}
+                    modalComponent={<SpotDeleteModal
+                      spotId={spot.id}
+                    />}
+                  >
+                    Delete
+                  </OpenModalButton>
+                </div>
               </div>
             </div>
           ))
