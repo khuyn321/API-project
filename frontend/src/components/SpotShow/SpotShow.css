@@ -147,6 +147,7 @@ hr {
   width: 5em;
   height: 2em;
   border-radius: 10px;
+  border: none;
   background-color: #6960b6;
   color: #ffffff;
   margin-bottom: 1em;
@@ -154,4 +155,8 @@ hr {
 
 .review-delete-button button::before {
   content: "Delete";
+}
+
+.review-delete-button button:hover {
+  background-color: #0073db;
 }

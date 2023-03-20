@@ -63,7 +63,7 @@ export default function SpotManagePage() {
                 </p>
               </div>
 
-              <div className="update-&-delete-buttons">
+              <div className="update-delete-buttons">
                 <Link to={`/spot/${spot.id}/edit`} > <button>Update</button></Link>
                 <button id="spot-delete" onClick={
                   async () => {

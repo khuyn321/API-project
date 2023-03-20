@@ -97,3 +97,18 @@ a {
 #become-a-host-button-2 a {
   color: #8eb4d8;
 }
+
+.update-delete-buttons button {
+  width: 5em;
+  height: 2em;
+  border-radius: 10px;
+  border: none;
+  background-color: #6960b6;
+  color: #ffffff;
+  margin-top: 1em;
+  margin-right: 7px;
+}
+
+.update-delete-buttons button:hover {
+  background-color: #0073db;
+}

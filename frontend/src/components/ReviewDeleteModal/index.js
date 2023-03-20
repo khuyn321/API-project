@@ -33,9 +33,9 @@ export default function DeleteReviewModal({ userReview, spotId }) {
       <h3 className='delete-confirm-header'>Are you sure you want to delete this review?</h3>
       <div className='delete-confirm-buttons'>
         <button className='yes-delete'
-          onClick={handleDelete}>Yes <span id='yes-delete-span'>(delete review)</span></button>
+          onClick={handleDelete}>Yes <span className='delete-span'>(delete review)</span></button>
         <button className='no-delete'
-          onClick={handleReturn}>No
+          onClick={handleReturn}>No <span className='delete-span'>(keep review)</span>
         </button>
       </div>
     </div>

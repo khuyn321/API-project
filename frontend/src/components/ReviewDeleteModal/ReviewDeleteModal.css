@@ -11,10 +11,18 @@
   text-align: center;
 }
 
+.yes-delete {
+  background-color: #ff0000;
+}
+
+.no-delete {
+  background-color: #8c88b7;
+}
+
 .delete-confirm-buttons button {
   margin-left: 7px;
   margin-right: 7px;
-  background-color: #00a2ff;
+  /* background-color: #00a2ff; */
   color: #ffffff;
   border-radius: 10px;
   padding: 10px 20px;
@@ -23,9 +31,9 @@
 }
 
 .delete-confirm-buttons button:hover {
-  background-color: #6960b6;
+  background-color: #642145;
 }
 
-#yes-delete-span {
+.delete-span {
   color: #bfe6ff;
 }
