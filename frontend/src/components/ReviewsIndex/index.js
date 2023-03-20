@@ -1,10 +1,13 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { deleteReviewThunk, getReviewsThunk } from "../../store/review";
 import "../SpotShow/SpotShow.css"
+import ReviewDeleteModal from "../ReviewDeleteModal";
+import OpenModalButton from "../OpenModalButton"
+
 
 export default function ReviewIndex({ spot }) {
   const dispatch = useDispatch();
@@ -12,8 +15,28 @@ export default function ReviewIndex({ spot }) {
   const reviewsObj = useSelector(state => state.reviews)
   const reviews = Object.values(reviewsObj);
   const history = useHistory();
+  const [showMenu, setShowMenu] = useState(false)
+  const ulRef = useRef();
   const [errors, setErrors] = useState([]);
   const user = useSelector(state => state.session.user)
+
+  const open = () => {
+    if (showMenu) return;
+    setShowMenu(true)
+  }
+  const close = () => setShowMenu(false)
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const close = (e) => {
+      if (!ulRef.current.contains(e.target)) setShowMenu(false);
+    }
+
+    document.addEventListener('click', close);
+
+    return () => document.removeEventListener('click', close);
+  }, [showMenu])
 
   useEffect(() => {
     dispatch(getReviewsThunk(spot.id));
@@ -62,8 +85,19 @@ export default function ReviewIndex({ spot }) {
               <Link to={`/spot/${spot.id}/reviews/create`} id="write-review">Post your review</Link>
             </button></div>)
             : user.id !== spot.Owner.id ?
-              <div>
-                <button id="review-delete" onClick={handleDelete}>Delete</button>
+              <div className="review-delete-button">
+                <OpenModalButton
+                  id="review-delete"
+                  itemText={`Delete`}
+                  onClick={open}
+                  onItemClick={close}
+                  modalComponent={<ReviewDeleteModal
+                    userReview={userReview}
+                    spotId={spot.id}
+                  />}
+                >
+                  Delete
+                </OpenModalButton>
               </div>
               : <></>)
           : <></>

@@ -1,0 +1,31 @@
+.delete-confirm-header {
+  text-align: center;
+  font-weight: bold;
+  color: #0047ab;
+  font-size: x-large;
+  padding: 1em 1em;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.delete-confirm-buttons {
+  text-align: center;
+}
+
+.delete-confirm-buttons button {
+  margin-left: 7px;
+  margin-right: 7px;
+  background-color: #00a2ff;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+}
+
+.delete-confirm-buttons button:hover {
+  background-color: #6960b6;
+}
+
+#yes-delete-span {
+  color: #bfe6ff;
+}

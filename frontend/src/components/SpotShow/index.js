@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { deleteASpot, getASpot } from "../../store/spots.js";
@@ -12,7 +12,6 @@ export default function SpotShow() {
   const { spotId } = useParams();
   const history = useHistory();
   const [errors, setErrors] = useState([]);
-
   // console.log("THIS IS THE SPOT ID:", spotId)
 
   const spot = useSelector(state => state.spots.singleSpot);
